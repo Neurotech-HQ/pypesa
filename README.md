@@ -9,12 +9,13 @@ The following are the features that are supported by the **Mpesa** public
 and require the **python** implementation.
 
 
-- [ ] B2B 
-- [ ] B2C
-- [ ] C2B
-- [ ] Transaction status 
-- [ ] Account balance
-- [ ] Reversal 
+- [ ] Customer to Bussiness (C2B) Single Payment 
+- [ ] Customer to Bussiness (C2B) Two-step Payment
+- [ ] Bussiness to Customer (B2C)
+- [ ] Bussiness to Bussiness (B2B) 
+- [ ] Payment Reversal
+- [ ] Query Transaction status 
+- [ ] Direct debit creation and Payment
 
 
 ## Documentation 
@@ -28,17 +29,52 @@ Getting started with **pypesa** is pretty straight forward and can be categorize
 
 into steps shown below.
 
-- Sign up for Mpesa Developer API 
+- Sign up for Mpesa Developer portal 
 
 - Install the [pypesa](http://pypesa.github.io) package using **pip**
 
 - Build your services with **pypesa**
 
 
+## Signing up 
+
+To sign up for Mpesa public API visit [Mpesa-API]() and then 
+
+you can go through [getting started Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
+by [alphaolomi](https://github.com/alphaolomi) to see how.
+
+## Installation 
+
+To install the **pypesa** package to your machine you can either 
+
+install directly from github or use pip to install it.
+
+- Using github
+
+```bash
+$~ git clone https://github.com/Kalebu/pypesa
+$~ cd pypesa
+$ pypesa ~ python setup.py install 
+```
+
+- Using pip 
+
+```
+
+$~ pip install pypesa
+
+```
 
 ## Contributing 
 
 Wanna contribute ? then please [contributing.md](http://pypesa.github.io/contributing) to see how 
+
+
+## Give it a star 
+
+If you found this repository useful, give it a star 
+
+You can also keep in touch with on [Twitter](https://twitter.com/j_kalebu).
 
 
 ## Bug bounty?
