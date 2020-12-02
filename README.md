@@ -9,12 +9,12 @@ The following are the features that are supported by the **Mpesa** public
 and require the **python** implementation.
 
 
-- [] B2B 
-- [] B2C
-- [] C2B
-- [] Transaction status 
-- [] Account balance
-- [] Reversal 
+- [ ] B2B 
+- [ ] B2C
+- [ ] C2B
+- [ ] Transaction status 
+- [ ] Account balance
+- [ ] Reversal 
 
 
 ## Documentation 
