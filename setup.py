@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pypesa',
-    version='1.0.0',
+    version='0.0.1',
     description='Python package for Vodacom Mpesa API Integration',
     url='https://github.com/Kalebu/pypesa',
     author="Jordan Kalebu",
