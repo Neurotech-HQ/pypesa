@@ -38,7 +38,7 @@ into steps shown below.
 
 ## Signing up 
 
-To sign up for Mpesa public API visit [Mpesa-API]() and then 
+To sign up for Mpesa public API visit [Mpesa-API](https://openapiportal.m-pesa.com/sign-up) and then 
 
 you can go through [getting started Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
 by [alphaolomi](https://github.com/alphaolomi) to see how.
