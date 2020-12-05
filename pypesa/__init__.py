@@ -1,6 +1,8 @@
 import requests
 from .mpesa_exceptions import AuthenticationError
 
+#tdWtOTaKSCVGDCoqKM4zqPgnM70IyVe6
+
 class Mpesa:
 
     def __init__(self, consumer_key: str, secret_key: str):
@@ -18,25 +20,39 @@ class Mpesa:
     @property
     def __authenticated(self):
         """
-            This method is for verifying whether consumer_key 
-            
-            and secret_key are valid or not by calling mpesa api
+    
         """
         return True
 
     def customer_to_bussiness(self):
+        """
+
+        """
+
         pass
 
     def bussiness_to_customer(self):
+        """
+        
+        """
         pass
 
     def bussiness_to_bussiness(self):
+        """
+
+        """
         pass
     
     def payment_reversal(self):
+        """
+
+        """
         pass
 
     def query_transaction_status(self):
+        """
+
+        """
         pass
 
     def __del__(self):
