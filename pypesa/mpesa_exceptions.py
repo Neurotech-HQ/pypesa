@@ -5,10 +5,21 @@ class AuthenticationError(Exception):
 
     Please try entering again carefully
 
-    >>mpesa = Mpesa(consumer_key = "xxxxxx",secret_key="xxxxx")
+    """
 
+    error_message = """
+
+    Could not verify your authentication keys
+    
+    keys.json should be formatted as shown below 
+    
+    {
+        'api_key' : 'xxxxxxxxx
+        'public_key' : 'xxxxxxx', 
+    }
 
     """
     
-    def __init__(self, error_message="Could not verify your authentication keys"):
+    def __init__(self, error_message=error_message):
         super().__init__(error_message)
+
