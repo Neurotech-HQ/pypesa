@@ -116,7 +116,16 @@ class Mpesa:
             print(bug)
             raise AuthenticationError
 
+    
+    @staticmethod
+    def verify_query(transaction_query: dict, required_fields: set) -> bool:        
+        query_keys = set(transaction_query.keys())
+        missing_keys = required_fields.difference(query_keys)
+        if missing_keys:
+            raise KeyError('These keys {} are missing in your transaction query'.format(missing_keys))
+        return True
 
+    
     def customer_to_bussiness(self, transaction_query:dict):
         """
 
@@ -130,21 +139,15 @@ class Mpesa:
                            'input_TransactionReference',
                            'input_PurchasedItemsDesc'
         }
-        missing_keys = required_fields.difference(set(transaction_query.keys()))
-        if missing_keys:
-            raise KeyError('These keys {} are missing in your transaction query'.format(missing_keys))
 
+        self.verify_query(transaction_query, required_fields)
         try:
-            print(self.urls.single_stage_c2b)
-            print(transaction_query)
-            response =  requests.post(
+            return requests.post(
                 self.urls.single_stage_c2b,
                 json = transaction_query,
                 headers = self.default_headers(),
                 verify = True
             )
-            print(response.text)
-            return response
         except requests.ConnectionError as bug:
             print(bug)
             print("Transaction could\'nt processed\nPlease check your network connection")
@@ -155,36 +158,92 @@ class Mpesa:
         
         """
         required_fields = {
-
+            "input_Amount",
+            "input_Country", 
+            "input_Currency", 
+            "input_CustomerMSISDN", 
+            "input_ServiceProviderCode", 
+            "input_ThirdPartyConversationID", 
+            "input_TransactionReference",
+            "input_PaymentItemsDesc"
         }
 
-    def bussiness_to_bussiness(self):
+        self.verify_query(transaction_query, required_fields)
+        try:
+            return requests.post(
+                self.urls.single_stage_b2c,
+                json = transaction_query,
+                headers = self.default_headers(),
+                verify = True
+            )
+        except Exception as bug:
+            print(bug)
+            print('Failed to iniate Transaction\nPlease take a look at your internet connection')
+            return False
+
+    def bussiness_to_bussiness(self, transaction_query:dict):
         """
 
         """
         required_fields = {
-
+            "input_Amount",
+            "input_Country", 
+            "input_Currency", 
+            "input_PrimaryPartyCode", 
+            "input_ReceiverPartyCode", 
+            "input_ThirdPartyConversationID", 
+            "input_TransactionReference",
+            "input_PurchasedItemsDesc"
         }
-        pass
     
-    def payment_reversal(self):
+        self.verify_query(transaction_query, required_fields)
+        try:
+            requests.post(
+                self.urls.single_stage_b2b,
+                json=transaction_query,
+                headers=self.default_headers(),
+                verify=True
+            )
+
+        except Exception as bug:
+            print(bug)
+            print('Failed to initiate Transaction\nPlease take a loook at your internet connection')
+            return False
+    
+    def payment_reversal(self, transaction_query:dict):
         """
 
         """
         required_fields = {
-
+            "input_Country",
+            "input_ReversalAmount", 
+            "input_ServiceProviderCode", 
+            "input_ThirdPartyConversationID", 
+            "input_TransactionID"
         }
-        pass
+
+        self.verify_query(transaction_query, required_fields)
+        try:
+            return requests.post(
+                self.urls.payment_reversal,
+                json = transaction_query,
+                headers = self.default_headers(),
+                verify = True
+            )
+        except Exception as bug:
+            print(bug)
+            print('Payment Reversal Failed\nPlease make sure you have stable internet connection')
+            return False
 
     def query_transaction_status(self):
         """
 
         """
         required_fields = {
-            
+            'input_Country'
+            "input_QueryReference",
+            "input_ServiceProviderCode",
+            "input_ThirdPartyConversationID", 
         }
 
-    def __del__(self):
-        pass
-
-
+        self
