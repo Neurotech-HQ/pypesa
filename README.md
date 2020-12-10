@@ -73,7 +73,7 @@ To begin using the package is pretty straight forward
 1. You need to have a json file named **keys.json** on your project directly 
   and then fill put in it your public and api keys in json format shown below 
 
-  ```json
+  ```python
 
     {
      'api_key': 'xxx', 
@@ -96,7 +96,7 @@ To begin using the package is pretty straight forward
                         "input_TransactionReference": 'T23434ZE5',
                         "input_PurchasedItemsDesc": "Python Book"
 }
->>>mpesa.customer_bussiness(transaction_query)
+>>>mpesa.customer_to_bussiness(transaction_query)
 Request processed successfully   INS-0
 <Response [201]>
 ```
