@@ -21,7 +21,7 @@ and require the **python** implementation.
 
 ## Documentation 
 
-Full Documentation can be found on [pypesa](http://pypesa.github.io)
+Full Documentation can be found on [pypesa](http://kalebu.github.io/pypesa)
 
 
 ## Getting started 
