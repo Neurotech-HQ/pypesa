@@ -1,5 +1,4 @@
-# Still in Development 
-
+# Still in active Development(Don't use it in production) 
 
 # pypesa
 Python wrapper on **Mpesa public API** for mobile Payment Integration 
@@ -59,7 +58,7 @@ $~ cd pypesa
 $ pypesa ~ python setup.py install 
 ```
 
-- Using pip 
+- Using pip (Not yet)
 
 ```
 
@@ -67,7 +66,40 @@ $~ pip install pypesa
 
 ```
 
-## Usage 
+## Usage
+
+To begin using the package is pretty straight forward 
+
+1. You need to have a json file named **keys.json** on your project directly 
+  and then fill put in it your public and api keys in json format shown below 
+
+  ```json
+
+    {
+     'api_key': 'xxx', 
+     'public_key': 'xxxxxxxxxxxxxx' 
+    }
+  ```
+
+2. Once done you're ready to go, just make sure you have active internet connection
+### Example of Usage (Customer to Bussiness Transaction)
+
+```python
+>>>from pypesa import Mpesa
+>>>mpesa = Mpesa()
+>>>transaction_query = {"input_Amount": "10", 
+                        "input_Country": "TZN", 
+                        "input_Currency": "TZS", 
+                        "input_CustomerMSISDN": "000000000001", 
+                        "input_ServiceProviderCode": "000000", 
+                        "input_ThirdPartyConversationID":'2edf7a0206d848f6b6fedea26accdc3a', 
+                        "input_TransactionReference": 'T23434ZE5',
+                        "input_PurchasedItemsDesc": "Python Book"
+}
+>>>mpesa.customer_bussiness(transaction_query)
+Request processed successfully   INS-0
+<Response [201]>
+```
 
 ## Contributing 
 
