@@ -1,6 +1,6 @@
 ## Welcome to PyPesa Official Documentation 
 
-Hi guys welcome to PyPesa Package [Pypesa Documentation](https://github.com/Kalebu/pypesa/edit/gh-pages/index.md) 
+Hi guys welcome to PyPesa Package [Pypesa Documentation](https://kalebu.github.io/pypesa) 
 
 # pypesa
 Python wrapper on **Mpesa public API** for mobile Payment Integration 
