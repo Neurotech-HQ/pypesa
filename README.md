@@ -1,3 +1,6 @@
+# Still in Development 
+
+
 # pypesa
 Python wrapper on **Mpesa public API** for mobile Payment Integration 
 
@@ -10,7 +13,6 @@ and require the **python** implementation.
 
 
 - [x] Customer to Bussiness (C2B) Single Payment 
-- [x] Customer to Bussiness (C2B) Two-step Payment
 - [x] Bussiness to Customer (B2C)
 - [x] Bussiness to Bussiness (B2B) 
 - [ ] Payment Reversal
@@ -64,6 +66,8 @@ $ pypesa ~ python setup.py install
 $~ pip install pypesa
 
 ```
+
+## Usage 
 
 ## Contributing 
 

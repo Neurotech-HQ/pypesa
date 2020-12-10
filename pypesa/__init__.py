@@ -3,7 +3,7 @@ import json
 import base64
 import socket
 import requests
-import service_urls
+from . import service_urls
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as rsa_cipher
 from .mpesa_exceptions import AuthenticationError

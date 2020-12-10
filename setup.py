@@ -11,6 +11,8 @@ setup(
     packages=['pypesa'],
     install_requires=[
         'requests',
+        'pycryptodome'
     ],
-    zip=False
+    
+    python_requires='>=3.6'
 )
