@@ -6,7 +6,7 @@ Python wrapper on **Mpesa public API** for mobile Payment Integration
 
 ## Features to implemeted 
 
-The following are the features that are supported by the **Mpesa** public
+The following are the features that are supported by the **Mpesa** public API
 
 and require the **python** implementation.
 
