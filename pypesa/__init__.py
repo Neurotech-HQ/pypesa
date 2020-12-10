@@ -8,8 +8,6 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as rsa_cipher
 from .mpesa_exceptions import AuthenticationError
 
-#tdWtOTaKSCVGDCoqKM4zqPgnM70IyVe6
-
 class Mpesa:
 
     def __init__(self, auth_path = 'keys.json', environment='testing'):
@@ -59,7 +57,6 @@ class Mpesa:
             raw_key = self.auth_keys['api_key']
             if session:
                 raw_key = self.get_session_id()
-                print('raw', raw_key)
             public_key_string = base64.b64decode(pub_key)
             rsa_public_key = RSA.importKey(public_key_string)
             raw_cipher = rsa_cipher.new(rsa_public_key)
@@ -88,7 +85,6 @@ class Mpesa:
     def default_headers(self, auth_key=None):
         if not auth_key:
             auth_key = self.__generate_encrypted_key(session=True)
-            print(auth_key)
         return {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer {}'.format(auth_key),
@@ -103,7 +99,6 @@ class Mpesa:
                 self.urls.session_id,
                 headers=headers)
             response = response.json()
-            print(response)
             session_id = response['output_SessionID']
             response_code = response['output_ResponseCode']
             description = response['output_ResponseDesc']
@@ -198,13 +193,12 @@ class Mpesa:
     
         self.verify_query(transaction_query, required_fields)
         try:
-            requests.post(
+            return requests.post(
                 self.urls.single_stage_b2b,
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True
             )
-
         except Exception as bug:
             print(bug)
             print('Failed to initiate Transaction\nPlease take a loook at your internet connection')
@@ -235,15 +229,26 @@ class Mpesa:
             print('Payment Reversal Failed\nPlease make sure you have stable internet connection')
             return False
 
-    def query_transaction_status(self):
+    def query_transaction_status(self, transaction_query:dict):
         """
 
         """
         required_fields = {
-            'input_Country'
+            "input_Country",
             "input_QueryReference",
             "input_ServiceProviderCode",
             "input_ThirdPartyConversationID", 
         }
 
-        self
+        self.verify_query(transaction_query, required_fields)
+        try:
+            return requests.post(
+                self.urls.transaction_status,
+                json=transaction_query,
+                headers=self.default_headers(),
+                verify=True
+            )
+        except Exception as bug:
+            print(bug)
+            print('Exception thrown while querying transaction status\nPlease make sure you have a stable internet connection')
+            return False

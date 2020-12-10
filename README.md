@@ -9,10 +9,10 @@ The following are the features that are supported by the **Mpesa** public
 and require the **python** implementation.
 
 
-- [ ] Customer to Bussiness (C2B) Single Payment 
-- [ ] Customer to Bussiness (C2B) Two-step Payment
-- [ ] Bussiness to Customer (B2C)
-- [ ] Bussiness to Bussiness (B2B) 
+- [x] Customer to Bussiness (C2B) Single Payment 
+- [x] Customer to Bussiness (C2B) Two-step Payment
+- [x] Bussiness to Customer (B2C)
+- [x] Bussiness to Bussiness (B2B) 
 - [ ] Payment Reversal
 - [ ] Query Transaction status 
 - [ ] Direct debit creation and Payment
