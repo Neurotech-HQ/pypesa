@@ -13,12 +13,12 @@ The following are the features that are supported by the **Mpesa** public API
 and require the **python** implementation.
 
 
-- [x] Customer to Bussiness (C2B) Single Payment 
-- [x] Bussiness to Customer (B2C)
-- [x] Bussiness to Bussiness (B2B) 
-- [ ] Payment Reversal
-- [ ] Query Transaction status 
-- [ ] Direct debit creation and Payment
+- [x]  Customer to Bussiness (C2B) Single Payment 
+- [x]  Bussiness to Customer (B2C)
+- [x]  Bussiness to Bussiness (B2B) 
+- [ ]  Payment Reversal
+- [ ]  Query Transaction status 
+- [ ]  Direct debit creation and Payment
 
 
 ## Documentation 
@@ -84,6 +84,7 @@ To begin using the package is pretty straight forward
   ```
 
 2. Once done you're ready to go, just make sure you have active internet connection
+
 ### Example of Usage (Customer to Bussiness Transaction)
 
 ```python
