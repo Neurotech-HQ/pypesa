@@ -32,7 +32,7 @@ into steps shown below.
 
 - Sign up for Mpesa Developer portal 
 
-- Install the [pypesa](http://pypesa.github.io) package using **pip**
+- Install the [pypesa](http://kalebu.github.io/pypesa) package using **pip**
 
 - Build your services with **pypesa**
 
@@ -101,9 +101,28 @@ Request processed successfully   INS-0
 <Response [201]>
 ```
 
+### Naming the authentication json
+If you named your authentication json in other name than **keys** you might to 
+specify it while creating an instance for mpesa just as shown below;
+
+```python
+>>>from pypesa import Mpesa
+>>>mpesa = Mpesa(auth_path = filename)
+``` 
+
+## production environmnent
+
+The package run by default using sandbox environmnent, If you wanna use it to real production
+environmnent you can specify it while creating an instance as shown below 
+
+```python
+>>>from pypesa import Mpesa
+>>>mpesa = Mpesa(environmnent="production")
+```
+
 ## Contributing 
 
-Wanna contribute ? then please [contributing.md](http://pypesa.github.io/contributing) to see how 
+Wanna contribute ? then please [contributing.md](https://github.com/Kalebu/pypesa/blob/main/Contributing.md) to see how 
 
 
 ## Give it a star 
