@@ -6,11 +6,11 @@ import requests
 from . import service_urls
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as rsa_cipher
-from .mpesa_exceptions import AuthenticationError
+from .mpesa_exceptions import AuthenticationError, LoadingKeyError, ConnectionError
 
 
 class Mpesa:
-    def __init__(self, auth_path="keys.json", environment="testing"):
+    def __init__(self, auth_path: str = "keys.json", environment: str = "testing"):
         """
         Mpesa API client for Python
 
@@ -48,9 +48,13 @@ class Mpesa:
         try:
             with open(keys_filename, "r") as auth:
                 return json.load(auth)
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"{keys_filename} is not found on the current directory"
+            )
         except Exception as bug:
             print(bug)
-            return
+            raise LoadingKeyError
 
     def __generate_encrypted_key(self, session=False):
         """"""
@@ -143,12 +147,8 @@ class Mpesa:
                 headers=self.default_headers(),
                 verify=True,
             )
-        except requests.ConnectionError as bug:
-            print(bug)
-            print(
-                "Transaction could'nt processed\nPlease check your network connection"
-            )
-            return False
+        except (requests.ConnectTimeout, requests.ConnectionError):
+            raise ConnectionError
 
     def bussiness_to_customer(self, transaction_query: dict):
         """"""
@@ -164,19 +164,18 @@ class Mpesa:
         }
 
         self.verify_query(transaction_query, required_fields)
+
         try:
+
             return requests.post(
                 self.urls.single_stage_b2c,
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
             )
-        except Exception as bug:
-            print(bug)
-            print(
-                "Failed to iniate Transaction\nPlease take a look at your internet connection"
-            )
-            return False
+
+        except (requests.ConnectTimeout, requests.ConnectionError):
+            raise ConnectionError
 
     def bussiness_to_bussiness(self, transaction_query: dict):
         """"""
@@ -192,6 +191,7 @@ class Mpesa:
         }
 
         self.verify_query(transaction_query, required_fields)
+
         try:
             return requests.post(
                 self.urls.single_stage_b2b,
@@ -199,12 +199,9 @@ class Mpesa:
                 headers=self.default_headers(),
                 verify=True,
             )
-        except Exception as bug:
-            print(bug)
-            print(
-                "Failed to initiate Transaction\nPlease take a loook at your internet connection"
-            )
-            return False
+
+        except (requests.ConnectTimeout, requests.ConnectionError):
+            raise ConnectionError
 
     def payment_reversal(self, transaction_query: dict):
         """"""
@@ -217,6 +214,7 @@ class Mpesa:
         }
 
         self.verify_query(transaction_query, required_fields)
+
         try:
             return requests.post(
                 self.urls.payment_reversal,
@@ -224,12 +222,9 @@ class Mpesa:
                 headers=self.default_headers(),
                 verify=True,
             )
-        except Exception as bug:
-            print(bug)
-            print(
-                "Payment Reversal Failed\nPlease make sure you have stable internet connection"
-            )
-            return False
+
+        except (requests.ConnectTimeout, requests.ConnectionError):
+            raise ConnectionError
 
     def query_transaction_status(self, transaction_query: dict):
         """"""
@@ -239,7 +234,9 @@ class Mpesa:
             "input_ServiceProviderCode",
             "input_ThirdPartyConversationID",
         }
+
         self.verify_query(transaction_query, required_fields)
+
         try:
             return requests.post(
                 self.urls.transaction_status,
@@ -247,9 +244,6 @@ class Mpesa:
                 headers=self.default_headers(),
                 verify=True,
             )
-        except Exception as bug:
-            print(bug)
-            print(
-                "Exception thrown while querying transaction status\nPlease make sure you have a stable internet connection"
-            )
-            return False
+
+        except (requests.ConnectTimeout, requests.ConnectionError):
+            raise ConnectionError
