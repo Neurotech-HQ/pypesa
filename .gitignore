@@ -1,2 +1,5 @@
-.__pycache__/
-*.json
+.vscode/
+dist/
+build/
+pypesa.egg-info/
+__pycache__/
