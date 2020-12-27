@@ -1,5 +1,6 @@
 .vscode/
+_pycache__/
 dist/
 build/
-pypesa.egg-info/
-__pycache__/
+*.egg-info/
+*.py[cod]
