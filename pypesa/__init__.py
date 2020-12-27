@@ -3,7 +3,9 @@ import json
 import base64
 import socket
 import requests
+from pathlib import Path
 from . import service_urls
+from typing import Optional, Union
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as rsa_cipher
 from .mpesa_exceptions import AuthenticationError, LoadingKeyError, ConnectionError
@@ -44,50 +46,55 @@ class Mpesa:
         )
 
     @staticmethod
-    def __load_keys(keys_filename):
+    def __load_keys(keys_filename: Union[str, Path]) -> dict:
+        """"""
         try:
+
             with open(keys_filename, "r") as auth:
                 return json.load(auth)
+
         except FileNotFoundError:
             raise FileNotFoundError(
                 f"{keys_filename} is not found on the current directory"
             )
+
         except Exception as bug:
             print(bug)
             raise LoadingKeyError
 
-    def __generate_encrypted_key(self, session=False):
+    def __generate_encrypted_key(self, session: Optional[bool] = False) -> str:
         """"""
         try:
             pub_key = self.auth_keys["public_key"]
             raw_key = self.auth_keys["api_key"]
+
             if session:
                 raw_key = self.get_session_id()
+
             public_key_string = base64.b64decode(pub_key)
             rsa_public_key = RSA.importKey(public_key_string)
             raw_cipher = rsa_cipher.new(rsa_public_key)
             encrypted_key = raw_cipher.encrypt(raw_key.encode())
+
             return base64.b64encode(encrypted_key).decode("utf-8")
-        except Exception as bug:
-            print(bug)
-            return
+
+        except Exception:
+            raise AuthenticationError(
+                "Exceptions thrown while generating encrypted key\nPlease make sure you have the right public key"
+            )
 
     @property
-    def origin_address(self):
+    def origin_address(self) -> str:
         return self.__origin_ip
 
     @origin_address.setter
-    def origin_address(self, ip_address):
+    def origin_address(self, ip_address: str) -> str:
         if isinstance(ip_address, str):
-            try:
-                if socket.inet_aton(ip_address):
-                    self.__origin_ip = ip_address
-                    return self.__origin_ip
-            except OSError:
-                raise ValueError("{} is invalid ip, please enter it again carefully")
+            self.__origin_ip = ip_address
+            return self.__origin_ip
         raise TypeError("Address must be string")
 
-    def default_headers(self, auth_key=None):
+    def default_headers(self, auth_key: Optional[str] = "") -> dict:
         if not auth_key:
             auth_key = self.__generate_encrypted_key(session=True)
         return {
@@ -97,7 +104,7 @@ class Mpesa:
             "Origin": self.origin_address,
         }
 
-    def get_session_id(self):
+    def get_session_id(self) -> str:
         try:
             headers = self.default_headers(auth_key=self.__encrypted_api_key)
             response = requests.get(self.urls.session_id, headers=headers)
@@ -126,7 +133,7 @@ class Mpesa:
             )
         return True
 
-    def customer_to_bussiness(self, transaction_query: dict):
+    def customer_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
             "input_Amount",
@@ -146,11 +153,12 @@ class Mpesa:
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            )
+            ).json()
+
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise ConnectionError
 
-    def bussiness_to_customer(self, transaction_query: dict):
+    def bussiness_to_customer(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
             "input_Amount",
@@ -172,12 +180,12 @@ class Mpesa:
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            )
+            ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise ConnectionError
 
-    def bussiness_to_bussiness(self, transaction_query: dict):
+    def bussiness_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
             "input_Amount",
@@ -198,12 +206,12 @@ class Mpesa:
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            )
+            ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise ConnectionError
 
-    def payment_reversal(self, transaction_query: dict):
+    def payment_reversal(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
             "input_Country",
@@ -221,12 +229,12 @@ class Mpesa:
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            )
+            ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise ConnectionError
 
-    def query_transaction_status(self, transaction_query: dict):
+    def query_transaction_status(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
             "input_Country",
@@ -243,7 +251,7 @@ class Mpesa:
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            )
+            ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise ConnectionError
