@@ -41,7 +41,7 @@ class LoadingKeyError(Exception):
         super().__init__(error_message)
 
 
-class ConnectionError(Exception):
+class MpesaConnectionError(Exception):
     """
     This is exception will be thrown where there is no or slow internet connection
     """

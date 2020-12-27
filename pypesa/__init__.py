@@ -8,16 +8,21 @@ from . import service_urls
 from typing import Optional, Union
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as rsa_cipher
-from .mpesa_exceptions import AuthenticationError, LoadingKeyError, ConnectionError
+from .mpesa_exceptions import AuthenticationError, LoadingKeyError, MpesaConnectionError
 
 
 class Mpesa:
-    def __init__(self, auth_path: str = "keys.json", environment: str = "testing"):
+    def __init__(
+        self,
+        auth_path: Optional[str] = "keys.json",
+        environment: Optional[str] = "testing",
+    ):
         """
         Mpesa API client for Python
 
         """
         self.auth_path = auth_path
+        self.auth_keys = dict()
         self.__encrypted_api_key = None
         self.__origin_ip = "*"
         self.urls = (
@@ -26,27 +31,37 @@ class Mpesa:
             else service_urls.sandbox
         )
         print(self.urls)
-        if not self.authenticated:
-            raise AuthenticationError
 
     @property
-    def authenticated(self) -> bool:
+    def authenticate(self) -> bool:
         """"""
-        if self.auth_path in os.listdir():
-            self.auth_keys = self.__load_keys(self.auth_path)
+
+        if self.auth_keys.get("public_key") and self.auth_keys.get("api_key"):
+            self.__encrypted_api_key = self.__generate_encrypted_key()
+            return True
+
+        elif os.path.isfile(self.auth_path):
+            print("loading from file")
+            self.auth_keys = self.load_keys(self.auth_path)
             if self.auth_keys:
                 self.__encrypted_api_key = self.__generate_encrypted_key()
-                if self.__encrypted_api_key:
-                    return True
+                return True
             return False
-        raise FileNotFoundError(
-            "{} is not found on your current directory\nPlease Create one as instructed".format(
-                self.auth_path
-            )
-        )
+
+        else:
+            return False
+
+    def authenticated(method):
+        def authorized_method(self, *args, **kwargs):
+            if self.authenticate:
+                return method(self, *args, **kwargs)
+            else:
+                raise AuthenticationError
+
+        return authorized_method
 
     @staticmethod
-    def __load_keys(keys_filename: Union[str, Path]) -> dict:
+    def load_keys(keys_filename: Union[str, Path]) -> dict:
         """"""
         try:
 
@@ -65,8 +80,8 @@ class Mpesa:
     def __generate_encrypted_key(self, session: Optional[bool] = False) -> str:
         """"""
         try:
-            pub_key = self.auth_keys["public_key"]
-            raw_key = self.auth_keys["api_key"]
+            pub_key = self.auth_keys.get("public_key")
+            raw_key = self.auth_keys.get("api_key")
 
             if session:
                 raw_key = self.get_session_id()
@@ -78,10 +93,33 @@ class Mpesa:
 
             return base64.b64encode(encrypted_key).decode("utf-8")
 
-        except Exception:
-            raise AuthenticationError(
+        except Exception as bug:
+            print(bug)
+            """raise AuthenticationError(
                 "Exceptions thrown while generating encrypted key\nPlease make sure you have the right public key"
-            )
+            )"""
+
+    @property
+    def api_key(self) -> str:
+        return self.auth_keys["api_key"]
+
+    @api_key.setter
+    def api_key(self, Api_key: str) -> str:
+        if isinstance(Api_key, str):
+            self.auth_keys["api_key"] = Api_key
+            return self.auth_keys["api_key"]
+        raise TypeError(f"API key must be a of type String not {type(Api_key)}")
+
+    @property
+    def public_key(self) -> str:
+        return self.auth_keys["public_key"]
+
+    @public_key.setter
+    def public_key(self, pb_key: str) -> str:
+        if isinstance(pb_key, str):
+            self.auth_keys["public_key"] = pb_key
+            return self.auth_keys["public_key"]
+        raise TypeError(f"Public key must be a string not a {type(pb_key)}")
 
     @property
     def origin_address(self) -> str:
@@ -92,7 +130,7 @@ class Mpesa:
         if isinstance(ip_address, str):
             self.__origin_ip = ip_address
             return self.__origin_ip
-        raise TypeError("Address must be string")
+        raise TypeError(f"Address must be of type string not {type(ip_address)}")
 
     def default_headers(self, auth_key: Optional[str] = "") -> dict:
         if not auth_key:
@@ -104,6 +142,7 @@ class Mpesa:
             "Origin": self.origin_address,
         }
 
+    @authenticated
     def get_session_id(self) -> str:
         try:
             headers = self.default_headers(auth_key=self.__encrypted_api_key)
@@ -133,6 +172,7 @@ class Mpesa:
             )
         return True
 
+    @authenticated
     def customer_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
@@ -156,8 +196,9 @@ class Mpesa:
             ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
-            raise ConnectionError
+            raise MpesaConnectionError
 
+    @authenticated
     def bussiness_to_customer(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
@@ -183,8 +224,9 @@ class Mpesa:
             ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
-            raise ConnectionError
+            raise MpesaConnectionError
 
+    @authenticated
     def bussiness_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
@@ -209,8 +251,9 @@ class Mpesa:
             ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
-            raise ConnectionError
+            raise MpesaConnectionError
 
+    @authenticated
     def payment_reversal(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
@@ -232,8 +275,9 @@ class Mpesa:
             ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
-            raise ConnectionError
+            raise MpesaConnectionError
 
+    @authenticated
     def query_transaction_status(self, transaction_query: dict) -> dict:
         """"""
         required_fields = {
@@ -254,4 +298,4 @@ class Mpesa:
             ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
-            raise ConnectionError
+            raise MpesaConnectionError
