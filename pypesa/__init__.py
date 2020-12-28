@@ -4,14 +4,14 @@ import base64
 import socket
 import requests
 from pathlib import Path
-from . import service_urls
+from .service_urls import sandbox, production
 from typing import Optional, Union
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as rsa_cipher
 from .mpesa_exceptions import AuthenticationError, LoadingKeyError, MpesaConnectionError
 
 
-class Mpesa:
+class Mpesa(object):
     def __init__(
         self,
         auth_path: Optional[str] = "keys.json",
@@ -23,28 +23,36 @@ class Mpesa:
         """
         self.auth_path = auth_path
         self.auth_keys = dict()
-        self.__encrypted_api_key = None
-        self.__origin_ip = "*"
-        self.urls = (
-            service_urls.production
-            if environment == "production"
-            else service_urls.sandbox
-        )
+        self._encrypted_api_key = None
+        self._origin_ip = "*"
+        self.urls = production() if environment == "production" else sandbox()
         print(self.urls)
+
+    def __setattr__(self, name, value):
+        allowed_attributes = [
+            "auth_path",
+            "auth_keys",
+            "_encrypted_api_key",
+            "_origin_ip",
+            "urls",
+        ]
+        if name not in allowed_attributes:
+            raise AttributeError("adding new attributes is strictly restricted")
+        object.__setattr__(self, name, value)
 
     @property
     def authenticate(self) -> bool:
         """"""
 
         if self.auth_keys.get("public_key") and self.auth_keys.get("api_key"):
-            self.__encrypted_api_key = self.__generate_encrypted_key()
+            self._encrypted_api_key = self.__generate_encrypted_key()
             return True
 
         elif os.path.isfile(self.auth_path):
             print("loading from file")
             self.auth_keys = self.load_keys(self.auth_path)
             if self.auth_keys:
-                self.__encrypted_api_key = self.__generate_encrypted_key()
+                self._encrypted_api_key = self.__generate_encrypted_key()
                 return True
             return False
 
@@ -100,6 +108,36 @@ class Mpesa:
             )"""
 
     @property
+    def path_to_auth(self) -> str:
+        return self.auth_path
+
+    @path_to_auth.setter
+    def path_to_auth(self, auth_path: Union[str, Path]) -> str:
+        if isinstance(auth_path, str):
+            self.auth_path = auth_path
+            return self.auth_path
+        raise TypeError(
+            f"Path to auth file must of type Path or String not {type(auth_path)}"
+        )
+
+    @property
+    def environment(self) -> Union[sandbox, production]:
+        return self.urls
+
+    @environment.setter
+    def environment(self, enviro: str) -> Union[sandbox, production]:
+        if isinstance(enviro, str):
+            if enviro in ["testing", "production"]:
+                if enviro == "testing":
+                    self.urls = sandbox()
+                else:
+                    self.urls = production()
+                print(self.urls)
+                return self.urls
+            return ValueError("Environment must be either testing or production")
+        return TypeError(f"environment must be of type string not {type(enviro)}")
+
+    @property
     def api_key(self) -> str:
         return self.auth_keys["api_key"]
 
@@ -123,15 +161,16 @@ class Mpesa:
 
     @property
     def origin_address(self) -> str:
-        return self.__origin_ip
+        return self._origin_ip
 
     @origin_address.setter
     def origin_address(self, ip_address: str) -> str:
         if isinstance(ip_address, str):
-            self.__origin_ip = ip_address
-            return self.__origin_ip
+            self._origin_ip = ip_address
+            return self._origin_ip
         raise TypeError(f"Address must be of type string not {type(ip_address)}")
 
+    @authenticated
     def default_headers(self, auth_key: Optional[str] = "") -> dict:
         if not auth_key:
             auth_key = self.__generate_encrypted_key(session=True)
@@ -145,7 +184,7 @@ class Mpesa:
     @authenticated
     def get_session_id(self) -> str:
         try:
-            headers = self.default_headers(auth_key=self.__encrypted_api_key)
+            headers = self.default_headers(auth_key=self._encrypted_api_key)
             response = requests.get(self.urls.session_id, headers=headers)
             response = response.json()
             session_id = response["output_SessionID"]
