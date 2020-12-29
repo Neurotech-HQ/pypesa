@@ -98,7 +98,8 @@ To begin using the package is pretty straight forward
 }
 >>>mpesa.customer_to_bussiness(transaction_query)
 Request processed successfully   INS-0
-{'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully', 'output_TransactionID': 'uGnPxFoXT2W0', 'output_ConversationID': '1d1e38495dc946729a8cffb136ab8391', 'output_ThirdPartyConversationID': '2edf7a0206d848f6b6fedea26accdc3a'}
+{'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully',
+ 'output_TransactionID': 'uGnPxFoXT2W0', 'output_ConversationID': '1d1e38495dc946729a8cffb136ab8391', 'output_ThirdPartyConversationID': '2edf7a0206d848f6b6fedea26accdc3a'}
 ```
 
 ### Naming the authentication json
