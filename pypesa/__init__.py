@@ -12,6 +12,15 @@ from .mpesa_exceptions import AuthenticationError, LoadingKeyError, MpesaConnect
 
 
 class Mpesa(object):
+
+    __slots__ = [
+        "auth_path",
+        "auth_keys",
+        "_encrypted_api_key",
+        "_origin_ip",
+        "urls",
+    ]
+
     def __init__(
         self,
         auth_path: Optional[str] = "keys.json",
@@ -27,18 +36,6 @@ class Mpesa(object):
         self._origin_ip = "*"
         self.urls = production() if environment == "production" else sandbox()
         print(self.urls)
-
-    def __setattr__(self, name, value):
-        allowed_attributes = [
-            "auth_path",
-            "auth_keys",
-            "_encrypted_api_key",
-            "_origin_ip",
-            "urls",
-        ]
-        if name not in allowed_attributes:
-            raise AttributeError("adding new attributes is strictly restricted")
-        object.__setattr__(self, name, value)
 
     @property
     def authenticate(self) -> bool:
