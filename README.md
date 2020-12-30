@@ -14,9 +14,9 @@ and require the **python** implementation.
 - [x] Customer to Bussiness (C2B) Single Payment 
 - [x] Bussiness to Customer (B2C)
 - [x] Bussiness to Bussiness (B2B) 
-- [ ] Payment Reversal
-- [ ] Query Transaction status 
-- [ ] Direct debit creation and Payment
+- [x] Payment Reversal
+- [x] Query Transaction status 
+- [x] Direct debit creation and Payment
 
 
 ## Documentation 

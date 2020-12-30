@@ -198,6 +198,10 @@ class Mpesa(object):
 
     @staticmethod
     def verify_query(transaction_query: dict, required_fields: set) -> bool:
+        """
+        Raise KeyError if transaction query has a missing key
+
+        """
         query_keys = set(transaction_query.keys())
         missing_keys = required_fields.difference(query_keys)
         if missing_keys:
@@ -211,18 +215,9 @@ class Mpesa(object):
     @authenticated
     def customer_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
-        required_fields = {
-            "input_Amount",
-            "input_Country",
-            "input_Currency",
-            "input_CustomerMSISDN",
-            "input_ServiceProviderCode",
-            "input_ThirdPartyConversationID",
-            "input_TransactionReference",
-            "input_PurchasedItemsDesc",
-        }
 
-        self.verify_query(transaction_query, required_fields)
+        self.verify_query(transaction_query, self.urls.re_customer_to_bussiness)
+
         try:
             return requests.post(
                 self.urls.single_stage_c2b,
@@ -237,18 +232,8 @@ class Mpesa(object):
     @authenticated
     def bussiness_to_customer(self, transaction_query: dict) -> dict:
         """"""
-        required_fields = {
-            "input_Amount",
-            "input_Country",
-            "input_Currency",
-            "input_CustomerMSISDN",
-            "input_ServiceProviderCode",
-            "input_ThirdPartyConversationID",
-            "input_TransactionReference",
-            "input_PaymentItemsDesc",
-        }
 
-        self.verify_query(transaction_query, required_fields)
+        self.verify_query(transaction_query, self.urls.re_bussiness_to_customer)
 
         try:
 
@@ -265,18 +250,8 @@ class Mpesa(object):
     @authenticated
     def bussiness_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
-        required_fields = {
-            "input_Amount",
-            "input_Country",
-            "input_Currency",
-            "input_PrimaryPartyCode",
-            "input_ReceiverPartyCode",
-            "input_ThirdPartyConversationID",
-            "input_TransactionReference",
-            "input_PurchasedItemsDesc",
-        }
 
-        self.verify_query(transaction_query, required_fields)
+        self.verify_query(transaction_query, self.urls.re_bussiness_to_bussiness)
 
         try:
             return requests.post(
@@ -292,15 +267,8 @@ class Mpesa(object):
     @authenticated
     def payment_reversal(self, transaction_query: dict) -> dict:
         """"""
-        required_fields = {
-            "input_Country",
-            "input_ReversalAmount",
-            "input_ServiceProviderCode",
-            "input_ThirdPartyConversationID",
-            "input_TransactionID",
-        }
 
-        self.verify_query(transaction_query, required_fields)
+        self.verify_query(transaction_query, self.urls.re_payment_reversal)
 
         try:
             return requests.post(
@@ -316,14 +284,8 @@ class Mpesa(object):
     @authenticated
     def query_transaction_status(self, transaction_query: dict) -> dict:
         """"""
-        required_fields = {
-            "input_Country",
-            "input_QueryReference",
-            "input_ServiceProviderCode",
-            "input_ThirdPartyConversationID",
-        }
 
-        self.verify_query(transaction_query, required_fields)
+        self.verify_query(transaction_query, self.urls.re_transaction_status)
 
         try:
             return requests.post(
@@ -333,5 +295,37 @@ class Mpesa(object):
                 verify=True,
             ).json()
 
+        except (requests.ConnectTimeout, requests.ConnectionError):
+            raise MpesaConnectionError
+
+    @authenticated
+    def create_direct_debit(self, transaction_query: dict) -> dict:
+        """"""
+
+        self.verify_query(transaction_query, self.urls.re_create_direct_debit)
+
+        try:
+            return requests.post(
+                self.urls.direct_debit,
+                json=transaction_query,
+                headers=self.default_headers(),
+                verify=True,
+            )
+
+        except (requests.ConnectTimeout, requests.ConnectionError):
+            raise MpesaConnectionError
+
+    @authenticated
+    def direct_debit_payment(self, transaction_query: dict) -> dict:
+        """"""
+        self.verify_query(transaction_query, self.urls.re_direct_debit_payment)
+
+        try:
+            return requests.post(
+                self.urls.direct_debit_payment,
+                json=transaction_query,
+                headers=self.default_headers(),
+                verify=True,
+            )
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise MpesaConnectionError
