@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name="pypesa",
+    name="pypesa-pesa",
     version="0.1",
     description='Python package for Vodacom Mpesa API Integration',
     url='https://github.com/Kalebu/pypesa',
@@ -26,7 +26,7 @@ setup(
         'requests',
         'pycryptodome'
     ],
- 
+
     include_package_data=True,
     python_requires=">=3.6",
     classifiers=[
