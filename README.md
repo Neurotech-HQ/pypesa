@@ -119,9 +119,15 @@ environmnent you can specify it while creating an instance as shown below
 >>>mpesa = Mpesa(environmnent="production")
 ```
 
+## To do list 
+
+- Adding a well structured documentation
+- Adding a detailed test case to the implementation 
+- Fixing rising bugs 
+
 ## Contributing 
 
-Wanna contribute ? then please [contributing.md](https://github.com/Kalebu/pypesa/blob/main/Contributing.md) to see how 
+Wanna contribute to Pypesa ? then please [contributing.md](https://github.com/Kalebu/pypesa/blob/main/Contributing.md) to see how 
 
 
 ## Give it a star 
@@ -134,7 +140,7 @@ You can also keep in touch with on [Twitter](https://twitter.com/j_kalebu).
 ## Bug bounty?
 
 If you encounter **issue** with the usage of the package, feel free raise an **issue** so as 
-we can fix it as soon as possible(ASAP) or just reach me directly through [email](isaackeinstein@gmail.com)
+we can fix it as soon as possible(ASAP) or just reach me directly through my email isaackeinstein(at)gmail.com
 
 
 
