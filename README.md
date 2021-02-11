@@ -1,5 +1,3 @@
-# Still in active Development(Don't use it in production) 
-
 # pypesa
 Python wrapper on **Mpesa public API** for mobile Payment Integration 
 
