@@ -89,7 +89,7 @@ It all comes to you on which one you might find friendly and cool, personally I 
 authentication using Json 
 -------------------------
 
-To authenticate your app using json, you need to have a json file named **keys.json** on your project directory and then fill put in it your public and api keys in json format shown below;
+To authenticate your app using json, you need to have a json file named **keys.json** on your project directory and then add your public and api keys in json format shown below;
 
   ```python
     {
