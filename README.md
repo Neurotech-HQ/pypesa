@@ -83,8 +83,8 @@ To begin using the package is pretty straight forward
 ### Example of Usage (Customer to Bussiness Transaction)
 
 ```python
->>>from pypesa import Mpesa
->>>mpesa = Mpesa()
+>>>import pypesa
+>>>mpesa = pypesa()
 >>>transaction_query = {"input_Amount": "10", 
                         "input_Country": "TZN", 
                         "input_Currency": "TZS", 

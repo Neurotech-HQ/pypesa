@@ -1,5 +1,10 @@
+"""
+Python Package to Easy the Integration with Vodacom Public API
+"""
+
 import os
 import json
+import sys
 import base64
 import socket
 import requests
@@ -136,18 +141,30 @@ class Mpesa(object):
 
     @property
     def api_key(self) -> str:
-        return self.auth_keys["api_key"]
+        '''
+            Return current api key
+        '''
+        return self.auth_keys.get("api_key")
 
     @api_key.setter
     def api_key(self, Api_key: str) -> str:
+        '''
+            Use this propery to explicit set a api_key
+
+            >> import pypesa
+            >> wallet = pypesa()
+            >> wallet.api_key = " Your api key" #here
+
+        '''
         if isinstance(Api_key, str):
             self.auth_keys["api_key"] = Api_key
             return self.auth_keys["api_key"]
-        raise TypeError(f"API key must be a of type String not {type(Api_key)}")
+        raise TypeError(
+            f"API key must be a of type String not {type(Api_key)}")
 
     @property
     def public_key(self) -> str:
-        return self.auth_keys["public_key"]
+        return self.auth_keys.get("public_key")
 
     @public_key.setter
     def public_key(self, pb_key: str) -> str:
@@ -165,7 +182,8 @@ class Mpesa(object):
         if isinstance(ip_address, str):
             self._origin_ip = ip_address
             return self._origin_ip
-        raise TypeError(f"Address must be of type string not {type(ip_address)}")
+        raise TypeError(
+            f"Address must be of type string not {type(ip_address)}")
 
     @authenticated
     def default_headers(self, auth_key: Optional[str] = "") -> dict:
@@ -216,7 +234,8 @@ class Mpesa(object):
     def customer_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
 
-        self.verify_query(transaction_query, self.urls.re_customer_to_bussiness)
+        self.verify_query(transaction_query,
+                          self.urls.re_customer_to_bussiness)
 
         try:
             return requests.post(
@@ -233,7 +252,8 @@ class Mpesa(object):
     def bussiness_to_customer(self, transaction_query: dict) -> dict:
         """"""
 
-        self.verify_query(transaction_query, self.urls.re_bussiness_to_customer)
+        self.verify_query(transaction_query,
+                          self.urls.re_bussiness_to_customer)
 
         try:
 
@@ -251,7 +271,8 @@ class Mpesa(object):
     def bussiness_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
 
-        self.verify_query(transaction_query, self.urls.re_bussiness_to_bussiness)
+        self.verify_query(transaction_query,
+                          self.urls.re_bussiness_to_bussiness)
 
         try:
             return requests.post(
@@ -329,3 +350,6 @@ class Mpesa(object):
             )
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise MpesaConnectionError
+
+
+sys.modules[__name__] = Mpesa

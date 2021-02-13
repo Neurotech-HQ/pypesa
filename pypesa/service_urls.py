@@ -74,7 +74,6 @@ class Required(object):
 
 class sandbox(Required):
     def __init__(self):
-
         """
         Service URL to be used during sandbox Development
 
@@ -98,6 +97,12 @@ class sandbox(Required):
 
         self.direct_debit_payment = "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN/directDebitPayment/"
 
+    def __str__(self) -> str:
+        return '<Using Sandbox Urls>'
+
+    def __str__(self) -> str:
+        return '<Using Sandbox Urls>'
+
 
 class production(Required):
     def __init__(self):
@@ -120,7 +125,11 @@ class production(Required):
             "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/reversal/"
         )
         self.transaction_status = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/queryTransactionStatus/"
-
         self.direct_debit = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/directDebitCreation/"
-
         self.direct_debit_payment = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/directDebitPayment/"
+
+    def __str__(self) -> str:
+        return '<Using Production Urls>'
+
+    def __repr__(self) -> str:
+        return '<Using Production Urls>'
