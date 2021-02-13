@@ -19,8 +19,9 @@ You can Take a look at [contributing.md](https://github.com/Kalebu/pypesa/blob/m
 To get started with the pypesa package firstly install the package using python *pip* just as illustrated below;
 
 ```bash
-pip install pypesa
+pip install python-pesa
 ```
+
 You can also install directly from github
 install directly from github or use pip to install it.
 
@@ -34,15 +35,19 @@ $ pypesa ~ python setup.py install
 
 In order to able to integrate with Mpesa-Api you need an (api key) and (public key) from Vodacom, They offer two kinds of them one for Sandbox(Experimenting) and Production(Deployment).
 
+If you already have them [Go to the next part](#what-pypesa-allows-you-to-do-?)
+
 Sandbox auth keys doesn't require you directly notifying physically Vodacom, you can sign up to the portal and get your keys instantly and start using them to architect your payment gateway.
 
 When you wanna move to the Production, you just need to replace the sandbox authentication keys with Production keys but codebase stays the same.
 
 Here is an article on how to easily get your authentication keys 
--> [Getting started with Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
+
+[Getting started with Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
 
 
-## What Pypesa allows you to do ?
+What Pypesa allows you to do ?
+------------------------------
 
 With Pypesa package you will be able to do the following kind of transaction 
 
@@ -58,30 +63,58 @@ With Pypesa package you will be able to do the following kind of transaction
 Guide to usage of the Pypesa package 
 
 ### Table of Content 
-    1. [Authentication](#authentication-in-pypesa) 
-    2. Customer to Bussiness(C2B) Single Payment 
-    3. Bussiness to Customer (B2C)
-    4. Bussiness to Bussiness (B2B) 
-    5. Payment Reversal
-    6. Query Transaction status 
-    7. Direct debit creation and Payment 
-
+1. [Authentication](#authentication-in-pypesa) 
+2. [Customer to Bussiness(C2B) Single Payment](#customer-to-bussiness-(c2b)-in-pypesa) 
+3. [Bussiness to Customer (B2C)](#bussiness-to-customer-(b2c)-in-pypesa)
+4. [Bussiness to Bussiness (B2B)](#bussiness-to-bussiness-(b2b)-in-pypesa)
+5. [Payment Reversal](#payment-reversal-in-pypesa)
+6. [Query Transaction status](#query-transaction-status-in-pypesa) 
+7. [Direct debit creation and Payment](#direct-debit-creation-and-payment) 
+8. [Deployment to Production](#deployment-to-production)
 
 Authentication in Pypesa
 ------------------------
 
-1. You need to have a json file named **keys.json** on your project directly 
-  and then fill put in it your public and api keys in json format shown below 
+Pypesa offers two distinct ways to authenticate your app
+
+It all comes to you on which one you might find friendly and cool, personally I prefer putting them on separate file ([Using Json](#authentication-using-json)).
+
+  - [Using Json](#authentication-using-json) 
+  - [Including in your src code](#explicit-auth-within-source-code)
+
+authentication using Json 
+-------------------------
+
+To authenticate your app using json, you need to have a json file named **keys.json** on your project directory and then fill put in it your public and api keys in json format shown below;
 
   ```python
-
     {
      'api_key': 'xxx', 
      'public_key': 'xxxxxxxxxxxxxx' 
     }
   ```
 
-2. Once done you're ready to go, just make sure you have active internet connection
+When you're done you can then get started with building your payment gateway with python, assumming your auth keys are valid.
+
+```python
+import pypesa
+mpesa = pypesa()
+```
+
+If you named your authentication json in other name than **keys.json**,  you need to specify it while creating an instance for pypesa as shown below;
+
+```python
+import pypesa
+mpesa = pypesa(auth_path = filename)
+``` 
+
+
+Explicit auth within source code
+--------------------------------
+
+
+Customer to Bussiness (C2B) in Pypesa
+------------------------------------
 
 ### Example of Usage (Customer to Bussiness Transaction)
 
@@ -102,14 +135,35 @@ Request processed successfully   INS-0
 <Response [201]>
 ```
 
-### Naming the authentication json
-If you named your authentication json in other name than **keys** you might to 
-specify it while creating an instance for mpesa just as shown below;
+Bussiness to Customer (B2C) in Pypesa
+-------------------------------------
+b2c docs here 
 
-```python
->>>from pypesa import Mpesa
->>>mpesa = Mpesa(auth_path = filename)
-``` 
+
+Bussiness to Bussiness (B2B) in PyPesa
+--------------------------------------
+b2b docs here 
+
+
+Payment Reversal in Pypesa
+--------------------------
+payment reversal docs here 
+
+
+Query Transaction status in Pypesa
+----------------------------------
+Query Transaction status docs here 
+
+
+Direct debit creation and Payment
+---------------------------------
+direct debit create and payment docs here 
+
+
+Deployment to Production 
+------------------------
+deployment to production docs here 
+
 
 ## production environmnent
 
@@ -120,21 +174,4 @@ environmnent you can specify it while creating an instance as shown below
 >>>from pypesa import Mpesa
 >>>mpesa = Mpesa(environmnent="production")
 ```
-
-## Contributing 
-
-Wanna contribute ? then please [contributing.md](https://github.com/Kalebu/pypesa/blob/main/Contributing.md) to see how 
-
-
-## Give it a star 
-
-If you found this repository useful, give it a star 
-
-You can also keep in touch with on [Twitter](https://twitter.com/j_kalebu).
-
-
-## Bug bounty?
-
-If you encounter **issue** with the usage of the package, feel free raise an **issue** so as 
-we can fix it as soon as possible(ASAP) or just reach me directly through [email](isaackeinstein@gmail.com)
 
