@@ -2,8 +2,8 @@
 from setuptools import setup
 
 setup(
-    name='pypesa',
-    version='0.0.1',
+    name="python-pesa",
+    version="0.1",
     description='Python package for Vodacom Mpesa API Integration',
     url='https://github.com/Kalebu/pypesa',
     author="Jordan Kalebu",
@@ -15,5 +15,16 @@ setup(
         'pycryptodome'
     ],
 
-    python_requires='>=3.6'
+    include_package_data=True,
+    python_requires=">=3.6",
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Build Tools",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+    ],
 )

@@ -56,8 +56,7 @@ $~ cd pypesa
 $ pypesa ~ python setup.py install 
 ```
 
-- Using pip 
-
+- Using pip
 ```
 
 $~ pip install python-pesa
