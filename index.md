@@ -3,56 +3,26 @@
 Hi guys welcome to PyPesa Package [Pypesa Documentation](https://kalebu.github.io/pypesa) 
 
 # pypesa
-Python wrapper on **Mpesa public API** for mobile Payment Integration 
 
+Python wrapper on **Mpesa public API** for mobile Payment Integration made with care, this package is aimed to make integrating with Vodacom Mpesa Api as smooth as 
+possible for newbie and Pro Devs.
 
-## Features to implemeted 
+(Transaction query) -> Pypesa -> Done  
 
-The following are the features that are supported by the **Mpesa** public API
+Pypesa is an opensource project under MIT public license, the complete source code can be found at [pypesa](https://kalebu.github.io/pypesa), I welcome contributors to the package whether its a code or documentation you're warmly welcome. 
 
-and require the **python** implementation.
-
-
-- [x]  Customer to Bussiness (C2B) Single Payment 
-- [x]  Bussiness to Customer (B2C)
-- [x]  Bussiness to Bussiness (B2B) 
-- [ ]  Payment Reversal
-- [ ]  Query Transaction status 
-- [ ]  Direct debit creation and Payment
-
-
-## Documentation 
-
-Full Documentation can be found on [pypesa](http://pypesa.github.io)
+You can Take a look at [contributing.md](https://github.com/Kalebu/pypesa/blob/main/Contributing.md) for more guide on howto.
 
 
 ## Getting started 
 
-Getting started with **pypesa** is pretty straight forward and can be categorized 
+To get started with the pypesa package firstly install the package using python *pip* just as illustrated below;
 
-into steps shown below.
-
-- Sign up for Mpesa Developer portal 
-
-- Install the [pypesa](http://kalebu.github.io/pypesa) package using **pip**
-
-- Build your services with **pypesa**
-
-
-## Signing up 
-
-To sign up for Mpesa public API visit [Mpesa-API](https://openapiportal.m-pesa.com/sign-up) and then 
-
-you can go through [getting started Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
-by [alphaolomi](https://github.com/alphaolomi) to see how.
-
-## Installation 
-
-To install the **pypesa** package to your machine you can either 
-
+```bash
+pip install pypesa
+```
+You can also install directly from github
 install directly from github or use pip to install it.
-
-- Using github
 
 ```bash
 $~ git clone https://github.com/Kalebu/pypesa
@@ -60,17 +30,45 @@ $~ cd pypesa
 $ pypesa ~ python setup.py install 
 ```
 
-- Using pip (Not yet)
+## One More Step 
 
-```
+In order to able to integrate with Mpesa-Api you need an (api key) and (public key) from Vodacom, They offer two kinds of them one for Sandbox(Experimenting) and Production(Deployment).
 
-$~ pip install pypesa
+Sandbox auth keys doesn't require you directly notifying physically Vodacom, you can sign up to the portal and get your keys instantly and start using them to architect your payment gateway.
 
-```
+When you wanna move to the Production, you just need to replace the sandbox authentication keys with Production keys but codebase stays the same.
 
-## Usage
+Here is an article on how to easily get your authentication keys 
+-> [Getting started with Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
 
-To begin using the package is pretty straight forward 
+
+## What Pypesa allows you to do ?
+
+With Pypesa package you will be able to do the following kind of transaction 
+
+- [x]  Customer to Bussiness (C2B) Single Payment 
+- [x]  Bussiness to Customer (B2C)
+- [x]  Bussiness to Bussiness (B2B) 
+- [x]  Payment Reversal
+- [x]  Query Transaction status 
+- [x]  Direct debit creation and Payment
+
+
+## Pypesa Usage 
+Guide to usage of the Pypesa package 
+
+### Table of Content 
+    1. [Authentication](#authentication-in-pypesa) 
+    2. Customer to Bussiness(C2B) Single Payment 
+    3. Bussiness to Customer (B2C)
+    4. Bussiness to Bussiness (B2B) 
+    5. Payment Reversal
+    6. Query Transaction status 
+    7. Direct debit creation and Payment 
+
+
+Authentication in Pypesa
+------------------------
 
 1. You need to have a json file named **keys.json** on your project directly 
   and then fill put in it your public and api keys in json format shown below 
