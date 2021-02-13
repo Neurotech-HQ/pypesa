@@ -1,5 +1,10 @@
+"""
+Python Package to Easy the Integration with Vodacom Public API
+"""
+
 import os
 import json
+import sys
 import base64
 import socket
 import requests
@@ -24,7 +29,7 @@ class Mpesa(object):
     def __init__(
         self,
         auth_path: Optional[str] = "keys.json",
-        environment: Optional[str] = "testing",
+        environment: Optional[str] = "sandbox",
     ):
         """
         Mpesa API client for Python
@@ -39,14 +44,24 @@ class Mpesa(object):
 
     @property
     def authenticate(self) -> bool:
-        """"""
+        """
+            Property to check If the user is has has included auth keys
+            either manually or through auth json file(keys.json)
+
+            >> import pypesa
+            >> mpesa = pypesa()
+            >> mpesa.authenticate
+
+            Return True if the environment has auth keys
+                   False if auth are not included
+        """
 
         if self.auth_keys.get("public_key") and self.auth_keys.get("api_key"):
             self._encrypted_api_key = self.__generate_encrypted_key()
             return True
 
         elif os.path.isfile(self.auth_path):
-            print("loading from file")
+            # print("loading from file")
             self.auth_keys = self.load_keys(self.auth_path)
             if self.auth_keys:
                 self._encrypted_api_key = self.__generate_encrypted_key()
@@ -67,7 +82,17 @@ class Mpesa(object):
 
     @staticmethod
     def load_keys(keys_filename: Union[str, Path]) -> dict:
-        """"""
+        """
+            Pypesa internal method to load the auth file 
+
+                >> import pypesa
+                >> mpesa = pypesa()
+                >> pypesa.load_keys()
+
+            Return keys Dict if auth file is present 
+
+            Raise FileNotFoundError if auth file is absent
+        """
         try:
 
             with open(keys_filename, "r") as auth:
@@ -83,7 +108,11 @@ class Mpesa(object):
             raise LoadingKeyError
 
     def __generate_encrypted_key(self, session: Optional[bool] = False) -> str:
-        """"""
+        """
+
+            Method use to Encrypt the api key and public key 
+            so as to get a secure RSA Encrypted key
+        """
         try:
             pub_key = self.auth_keys.get("public_key")
             raw_key = self.auth_keys.get("api_key")
@@ -95,7 +124,6 @@ class Mpesa(object):
             rsa_public_key = RSA.importKey(public_key_string)
             raw_cipher = rsa_cipher.new(rsa_public_key)
             encrypted_key = raw_cipher.encrypt(raw_key.encode())
-
             return base64.b64encode(encrypted_key).decode("utf-8")
 
         except Exception as bug:
@@ -106,10 +134,16 @@ class Mpesa(object):
 
     @property
     def path_to_auth(self) -> str:
+        """
+            Return Path to Authentication file
+        """
         return self.auth_path
 
     @path_to_auth.setter
     def path_to_auth(self, auth_path: Union[str, Path]) -> str:
+        """
+            Setting new path to the authentication file
+        """
         if isinstance(auth_path, str):
             self.auth_path = auth_path
             return self.auth_path
@@ -119,38 +153,73 @@ class Mpesa(object):
 
     @property
     def environment(self) -> Union[sandbox, production]:
+        """
+            Return the Environment the Pypesa is running 
+
+            whether its Sandbox | Production 
+        """
         return self.urls
 
     @environment.setter
     def environment(self, enviro: str) -> Union[sandbox, production]:
+        """
+            Set new pypesa environment 
+
+            Eg. changing env to production; 
+
+            >> import pypesa
+            >> mpesa = pypesa()
+            >> mpesa.environment = "production"
+            <Using Production Urls>
+        """
         if isinstance(enviro, str):
-            if enviro in ["testing", "production"]:
-                if enviro == "testing":
+            if enviro in ["sandbox", "production"]:
+                if enviro == "sandbox":
                     self.urls = sandbox()
                 else:
                     self.urls = production()
                 print(self.urls)
                 return self.urls
-            return ValueError("Environment must be either testing or production")
-        return TypeError(f"environment must be of type string not {type(enviro)}")
+            raise ValueError(
+                "Environment must be either sandbox or production")
+        raise TypeError(
+            f"environment must be of type string not {type(enviro)}")
 
     @property
     def api_key(self) -> str:
-        return self.auth_keys["api_key"]
+        '''
+            Return current api key
+        '''
+        return self.auth_keys.get("api_key")
 
     @api_key.setter
     def api_key(self, Api_key: str) -> str:
+        '''
+            Use this propery to explicit set a api_key
+
+            >> import pypesa
+            >> wallet = pypesa()
+            >> wallet.api_key = " Your api key" #here
+
+        '''
         if isinstance(Api_key, str):
             self.auth_keys["api_key"] = Api_key
             return self.auth_keys["api_key"]
-        raise TypeError(f"API key must be a of type String not {type(Api_key)}")
+        raise TypeError(
+            f"API key must be a of type String not {type(Api_key)}")
 
     @property
     def public_key(self) -> str:
-        return self.auth_keys["public_key"]
+        """
+            Return the current Public key
+        """
+        return self.auth_keys.get("public_key")
 
     @public_key.setter
     def public_key(self, pb_key: str) -> str:
+        """
+            Set a new public key 
+        """
         if isinstance(pb_key, str):
             self.auth_keys["public_key"] = pb_key
             return self.auth_keys["public_key"]
@@ -158,17 +227,28 @@ class Mpesa(object):
 
     @property
     def origin_address(self) -> str:
+        """
+            Return the current origin address
+        """
         return self._origin_ip
 
     @origin_address.setter
     def origin_address(self, ip_address: str) -> str:
+        """
+            Set a new origin address 
+        """
         if isinstance(ip_address, str):
             self._origin_ip = ip_address
             return self._origin_ip
-        raise TypeError(f"Address must be of type string not {type(ip_address)}")
+        raise TypeError(
+            f"Address must be of type string not {type(ip_address)}")
 
     @authenticated
     def default_headers(self, auth_key: Optional[str] = "") -> dict:
+        """
+            Generate Default header to be used during a Request
+
+        """
         if not auth_key:
             auth_key = self.__generate_encrypted_key(session=True)
         return {
@@ -187,9 +267,9 @@ class Mpesa(object):
             session_id = response["output_SessionID"]
             response_code = response["output_ResponseCode"]
             description = response["output_ResponseDesc"]
-            print(description, " ", response_code)
+            # print(description, " ", response_code)
             if response_code == "INS-989":
-                print("Session creation failed!!")
+                # print("Session creation failed!!")
                 raise AuthenticationError
             return session_id
         except Exception as bug:
@@ -216,7 +296,8 @@ class Mpesa(object):
     def customer_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
 
-        self.verify_query(transaction_query, self.urls.re_customer_to_bussiness)
+        self.verify_query(transaction_query,
+                          self.urls.re_customer_to_bussiness)
 
         try:
             return requests.post(
@@ -233,7 +314,8 @@ class Mpesa(object):
     def bussiness_to_customer(self, transaction_query: dict) -> dict:
         """"""
 
-        self.verify_query(transaction_query, self.urls.re_bussiness_to_customer)
+        self.verify_query(transaction_query,
+                          self.urls.re_bussiness_to_customer)
 
         try:
 
@@ -251,7 +333,8 @@ class Mpesa(object):
     def bussiness_to_bussiness(self, transaction_query: dict) -> dict:
         """"""
 
-        self.verify_query(transaction_query, self.urls.re_bussiness_to_bussiness)
+        self.verify_query(transaction_query,
+                          self.urls.re_bussiness_to_bussiness)
 
         try:
             return requests.post(
@@ -329,3 +412,6 @@ class Mpesa(object):
             )
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise MpesaConnectionError
+
+
+sys.modules[__name__] = Mpesa
