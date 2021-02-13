@@ -1,13 +1,13 @@
 ## Welcome to PyPesa Official Documentation 
 
-Hi guys welcome to PyPesa Package [Pypesa Documentation](https://kalebu.github.io/pypesa) 
+Hi welcome to Official PyPesa Documentation 
 
-# pypesa
-
-Python wrapper on **Mpesa public API** for mobile Payment Integration made with care, this package is aimed to make integrating with Vodacom Mpesa Api as smooth as 
+Pypesa is python wrapper on **Mpesa public API** for mobile Payment Integration made with care, this package is aimed to make integrating with Vodacom Mpesa Api as smooth as 
 possible for newbie and Pro Devs.
 
-(Transaction query) -> Pypesa -> Done  
+Transaction query  ⮕  Pypesa  ⮕ Done  
+
+### Opensource 
 
 Pypesa is an opensource project under MIT public license, the complete source code can be found at [pypesa](https://kalebu.github.io/pypesa), I welcome contributors to the package whether its a code or documentation you're warmly welcome. 
 
@@ -22,13 +22,17 @@ To get started with the pypesa package firstly install the package using python 
 pip install python-pesa
 ```
 
-You can also install directly from github
-install directly from github or use pip to install it.
+To make sure you install the latest version of Pypesa to keep yourself updated do this;
+```bash
+pip install --upgrade python-pesa
+```
+
+You can also install directly from github install directly from github just as shown below;
 
 ```bash
-$~ git clone https://github.com/Kalebu/pypesa
-$~ cd pypesa
-$ pypesa ~ python setup.py install 
+git clone https://github.com/Kalebu/pypesa
+cd pypesa
+pypesa-> python setup.py install 
 ```
 
 ## One More Step 
@@ -108,20 +112,31 @@ import pypesa
 mpesa = pypesa(auth_path = filename)
 ``` 
 
-
 Explicit auth within source code
 --------------------------------
+Apart from authenticating your python app using Json, you can also explicit specify the key in your code just as shown below;
+
+```python
+import pypesa 
+
+mpesa = pypesa()
+
+mpesa.api_key = "xxxxxxxxxxxxx"
+mpesa.public_key ="xxxxxxxxxxxxx"
+```
+
+Note;
+
+    Please Make sure you're keys are strings, pypesa will raise a TypeError() if you set it to other type than it.
 
 
 Customer to Bussiness (C2B) in Pypesa
-------------------------------------
-
-### Example of Usage (Customer to Bussiness Transaction)
+-------------------------------------
 
 ```python
->>>from pypesa import Mpesa
->>>mpesa = Mpesa()
->>>transaction_query = {"input_Amount": "10", 
+>> import pypesa 
+>> mpesa = pypesa()
+>> transaction_query = {"input_Amount": "10", 
                         "input_Country": "TZN", 
                         "input_Currency": "TZS", 
                         "input_CustomerMSISDN": "000000000001", 
@@ -130,7 +145,7 @@ Customer to Bussiness (C2B) in Pypesa
                         "input_TransactionReference": 'T23434ZE5',
                         "input_PurchasedItemsDesc": "Python Book"
 }
->>>mpesa.customer_to_bussiness(transaction_query)
+>> mpesa.customer_to_bussiness(transaction_query)
 Request processed successfully   INS-0
 <Response [201]>
 ```
