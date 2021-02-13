@@ -73,11 +73,12 @@ class Required(object):
 
 
 class sandbox(Required):
-    def __init__(self):
-        """
-        Service URL to be used during sandbox Development
+    """
+    Service URL to be used during sandbox Development
 
-        """
+    """
+
+    def __init__(self):
         self.session_id = (
             "https://openapi.m-pesa.com/sandbox/ipg/v2/vodacomTZN/getSession/"
         )
@@ -105,12 +106,13 @@ class sandbox(Required):
 
 
 class production(Required):
+    """
+
+    Service URL to be used for Production Development
+
+    """
+
     def __init__(self):
-        """
-
-        Service URL to be used for Production Development
-
-        """
         self.session_id = (
             "https://openapi.m-pesa.com/openapi/ipg/v2/vodacomTZN/getSession/"
         )
