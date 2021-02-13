@@ -136,57 +136,138 @@ Customer to Bussiness (C2B) in Pypesa
 ```python
 >> import pypesa 
 >> mpesa = pypesa()
->> transaction_query = {"input_Amount": "10", 
-                        "input_Country": "TZN", 
-                        "input_Currency": "TZS", 
-                        "input_CustomerMSISDN": "000000000001", 
-                        "input_ServiceProviderCode": "000000", 
-                        "input_ThirdPartyConversationID":'2edf7a0206d848f6b6fedea26accdc3a', 
-                        "input_TransactionReference": 'T23434ZE5',
-                        "input_PurchasedItemsDesc": "Python Book"
-}
+>> transaction_query = {
+      "input_Amount": "10", 
+      "input_Country": "TZN", 
+      "input_Currency": "TZS", 
+      "input_CustomerMSISDN": "000000000001", 
+      "input_ServiceProviderCode": "000000", 
+      "input_ThirdPartyConversationID":'2edf7a0206d848f6b6fedea26accdc3a', 
+      "input_TransactionReference": 'T23434ZE5',
+      "input_PurchasedItemsDesc": "Python Book"
+  }
 >> mpesa.customer_to_bussiness(transaction_query)
-Request processed successfully   INS-0
-<Response [201]>
 ```
 
 Bussiness to Customer (B2C) in Pypesa
 -------------------------------------
-b2c docs here 
 
+```python
+>> import pypesa
+>> mpesa = pypesa()
+>> transaction_query = {
+    'input_Amount': 250,
+    'input_Country': 'TZN',
+    'input_Currency': 'TZS',
+    'input_CustomerMSISDN': '000000000001',
+    'input_ServiceProviderCode': '000000',
+    'input_ThirdPartyConversationID':'f5e420e99594a9c496d8600',
+    'input_TransactionReference': 'T12345C',
+    'input_PurchasedItemsDesc': 'Donation',
+  }
+
+>> mpesa.bussiness_to_customer(transaction_query)
+```
 
 Bussiness to Bussiness (B2B) in PyPesa
 --------------------------------------
-b2b docs here 
-
+```python
+>> import pypesa
+>> mpesa = pypesa()
+>> transaction_query = {
+      'input_Amount': 10,
+      'input_Country': 'TZN',
+      'input_Currency': 'TZS',
+      'input_CustomerMSISDN': '000000000001',
+      'input_ServiceProviderCode': '000000',
+      'input_ThirdPartyConversationID': 'asv02e5958774f7ba228d83d0d689761',
+      'input_TransactionReference': 'T1234C',
+      'input_PurchasedItemsDesc': 'Shoes',
+   }
+>> mpesa.bussiness_to_bussiness(transaction_query) 
+```
 
 Payment Reversal in Pypesa
 --------------------------
-payment reversal docs here 
+```python
+>> import pypesa
+>> mpesa = pypesa()
+>> transaction_query = {
+      'input_QueryReference': '000000000000000000001',
+      'input_ServiceProviderCode': '000000',
+      'input_ThirdPartyConversationID':'asv02e5958774f7ba228d83d0d689761',
+      'input_Country': 'TZN',
+    }
+>> mpesa.payment_reversal(transaction_query)
+
+```
 
 
 Query Transaction status in Pypesa
 ----------------------------------
-Query Transaction status docs here 
+```python
+>> import pypesa
+>> mpesa = pypesa()
+>> transaction_query = {
+      'input_QueryReference': '000000000000000000001',
+      'input_ServiceProviderCode': '000000',
+      'input_ThirdPartyConversationID': 'asv02e5958774f7ba228d83d0d689761',
+      'input_Country': 'TZN',
+    }
+>> mpesa.query_transaction_status(transaction_query)
 
+```
 
 Direct debit creation and Payment
 ---------------------------------
-direct debit create and payment docs here 
+
+Direct debit Creation 
+
+```python
+>> import pypesa
+>> mpesa = pypesa()
+>> transaction_query = {
+        "input_AgreedTC":"something",
+        "input_Country":"something",
+        "input_CustomerMSISDN":"something",
+        "input_EndRangeOfDays":"something",
+        "input_ExpiryDate":"something",
+        "input_FirstPaymentDate":"something",
+        "input_Frequency":"something",
+        "input_ServiceProviderCode":"something",
+        "input_StartRangeOfDays":"something",
+        "input_ThirdPartyConversationID":"something",
+        "input_ThirdPartyReference":"something",
+    }
+>> mpesa.create_direct_debit(transaction_query)
+```
+
+Direct debit Payment 
+
+```python
+>> import pypesa
+>> mpesa = pypesa()
+>> transaction_query = {        
+        "input_Amount":"something",
+        "input_Country":"something",
+        "input_Currency":"something",
+        "input_CustomerMSISDN":"something",
+        "input_ServiceProviderCode":"something",
+        "input_ThirdPartyConversationID":"something",
+        "input_ThirdPartyReference":"something",
+    }
+>> mpesa.direct_debit_payment(transaction_query)
+```
 
 
 Deployment to Production 
 ------------------------
-deployment to production docs here 
 
-
-## production environmnent
-
-The package run by default using sandbox environmnent, If you wanna use it to real production
-environmnent you can specify it while creating an instance as shown below 
+The package run by default using sandbox environmnent, If you wanna use it to real production environmnent you can specify it while creating an instance as shown below 
 
 ```python
 >>>from pypesa import Mpesa
 >>>mpesa = Mpesa(environmnent="production")
 ```
 
+All the Credits to [kalebu](github.com/kalebu)
