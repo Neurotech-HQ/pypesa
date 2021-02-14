@@ -1,4 +1,8 @@
 class Required(object):
+    """
+        A class holding a dictionary of required fields
+        for variety of transaction supported by pypesa
+    """
     re_customer_to_bussiness = {
         "input_Amount",
         "input_Country",
