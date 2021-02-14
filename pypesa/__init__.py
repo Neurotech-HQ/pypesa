@@ -359,7 +359,7 @@ class Mpesa(object):
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            ).text
+            ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise MpesaConnectionError
@@ -393,7 +393,7 @@ class Mpesa(object):
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            )
+            ).json()
 
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise MpesaConnectionError
@@ -409,7 +409,7 @@ class Mpesa(object):
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            )
+            ).json()
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise MpesaConnectionError
 
