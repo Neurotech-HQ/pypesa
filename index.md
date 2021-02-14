@@ -306,6 +306,12 @@ For instance if we take a look at json response of a previous b2b transaction we
 
 Query Transaction status in Pypesa
 ----------------------------------
+The Query Transaction Status API call is used to query the status of the transaction that has been initiated.
+
+Use *query_transaction_status()* to do this just as illustrated in the example below; 
+
+Here also you can use your previous transaction ID as an input_QueryReference as to specify which transaction you wanna see it's status, 
+
 ```python
 >> import pypesa
 >> mpesa = pypesa()
