@@ -66,7 +66,9 @@ With Pypesa package you will be able to do the following kind of transaction
 ## Pypesa Usage 
 Guide to usage of the Pypesa package 
 
-### Table of Content 
+Table of Content 
+-----------------
+
 1. [Authentication](#authentication-in-pypesa) 
 2. [Customer to Bussiness(C2B) Single Payment](#customer-to-bussiness-in-pypesa) 
 3. [Bussiness to Customer (B2C)](#bussiness-to-customer-in-pypesa)
@@ -134,6 +136,7 @@ Note;
 
     Please Make sure you're keys are strings, pypesa will raise a TypeError() if you set it to other type than it.
 
+⮕ [Back to the menu](#table-of-content)
 
 Customer to Bussiness in Pypesa
 -------------------------------------
@@ -205,6 +208,8 @@ Pypesa will does not verify your authentication instantly as you create a pypesa
 
 When you try to do a transaction without internet connection, pypesa will raise **MpesaConnectionError**, So make sure you have an active intenet connection when doing it so  
 
+⮕ [Back to the menu](#table-of-content)
+
 Bussiness to Customer in Pypesa
 -------------------------------
 As the suggests, use *bussiness_to_customer()* to handle transaction from particular bussiness account to customers.
@@ -236,6 +241,7 @@ Done!! Just like we have already made our b2c transaction in a sandbox
 
 *More description (Coming soon !!!)*
 
+⮕ [Back to the menu](#table-of-content)
 
 Bussiness to Bussiness in PyPesa
 --------------------------------------
@@ -264,6 +270,8 @@ Here is an example on how you would do that in pypesa;
 
 ```
 
+⮕ [Back to the menu](#table-of-content)
+
 Payment Reversal in Pypesa
 --------------------------
 
@@ -280,6 +288,8 @@ Payment Reversal in Pypesa
 
 ```
 
+⮕ [Back to the menu](#table-of-content)
+
 
 Query Transaction status in Pypesa
 ----------------------------------
@@ -295,6 +305,8 @@ Query Transaction status in Pypesa
 >> mpesa.query_transaction_status(transaction_query)
 
 ```
+
+⮕ [Back to the menu](#table-of-content)
 
 Direct debit creation and Payment
 ---------------------------------
@@ -320,6 +332,8 @@ Direct debit Creation
 >> mpesa.create_direct_debit(transaction_query)
 ```
 
+⮕ [Back to the menu](#table-of-content)
+
 Direct debit Payment 
 
 ```python
@@ -336,7 +350,7 @@ Direct debit Payment
     }
 >> mpesa.direct_debit_payment(transaction_query)
 ```
-
+⮕ [Back to the menu](#table-of-content)
 
 Deployment to Production 
 ------------------------
@@ -347,5 +361,7 @@ The package run by default using sandbox environmnent, If you wanna use it to re
 >>>from pypesa import Mpesa
 >>>mpesa = Mpesa(environmnent="production")
 ```
+
+⮕ [Back to the menu](#table-of-content)
 
 All the Credits to [kalebu](https://github.com/kalebu)
