@@ -68,9 +68,9 @@ Guide to usage of the Pypesa package
 
 ### Table of Content 
 1. [Authentication](#authentication-in-pypesa) 
-2. [Customer to Bussiness(C2B) Single Payment](#customer-to-bussiness-(c2b)-in-pypesa) 
-3. [Bussiness to Customer (B2C)](#bussiness-to-customer-(b2c)-in-pypesa)
-4. [Bussiness to Bussiness (B2B)](#bussiness-to-bussiness-(b2b)-in-pypesa)
+2. [Customer to Bussiness(C2B) Single Payment](#customer-to-bussiness-in-pypesa) 
+3. [Bussiness to Customer (B2C)](#bussiness-to-customer-in-pypesa)
+4. [Bussiness to Bussiness (B2B)](#bussiness-to-bussiness-in-pypesa)
 5. [Payment Reversal](#payment-reversal-in-pypesa)
 6. [Query Transaction status](#query-transaction-status-in-pypesa) 
 7. [Direct debit creation and Payment](#direct-debit-creation-and-payment) 
@@ -135,7 +135,7 @@ Note;
     Please Make sure you're keys are strings, pypesa will raise a TypeError() if you set it to other type than it.
 
 
-Customer to Bussiness (C2B) in Pypesa
+Customer to Bussiness in Pypesa
 -------------------------------------
 
 As the method name suggets *customer_to_bussiness()*, use this method to process payments whereby customers do some payment to a particular bussinss account.
@@ -164,6 +164,8 @@ As explained at the top, the journey to integrate is made smooth as possible, wh
 Good news !! As we can see above, our payments was sucessfully processed by the sandbox. 
 
 But you have to be carefully while writing your transaction_query by making sure all the neccessary keys are specified with their correct type.
+
+### Pre-validation 
 
 Pypesa do **pre-validation** before sending a request to vodacom openapi to ensure all the keys for particular transaction are present and it will raise **keyError** if any of the neccessary key is missing.  
 
@@ -195,9 +197,15 @@ KeyError: "These keys {'input_PurchasedItemsDesc'} are missing in your transacti
 
 ```
 
+### Authentication Error 
 
+Pypesa will does not verify your authentication instantly as you create a pypesa instance, instead it will verify them while submitting a request of particular transaction, so that means if you have put invalid api-key or public-key you will experience an **Authentication Error**
 
-Bussiness to Customer (B2C) in Pypesa
+###  MpesaConnectionError
+
+When you try to do a transaction without internet connection, pypesa will raise **MpesaConnectionError**, So make sure you have an active intenet connection when doing it so  
+
+Bussiness to Customer in Pypesa
 -------------------------------------
 
 ```python
@@ -217,7 +225,7 @@ Bussiness to Customer (B2C) in Pypesa
 >> mpesa.bussiness_to_customer(transaction_query)
 ```
 
-Bussiness to Bussiness (B2B) in PyPesa
+Bussiness to Bussiness in PyPesa
 --------------------------------------
 ```python
 >> import pypesa
