@@ -354,12 +354,12 @@ class Mpesa(object):
         self.verify_query(transaction_query, self.urls.re_payment_reversal)
 
         try:
-            return requests.post(
+            return requests.put(
                 self.urls.payment_reversal,
                 json=transaction_query,
                 headers=self.default_headers(),
                 verify=True,
-            ).json()
+            ).text
 
         except (requests.ConnectTimeout, requests.ConnectionError):
             raise MpesaConnectionError
@@ -371,7 +371,7 @@ class Mpesa(object):
         self.verify_query(transaction_query, self.urls.re_transaction_status)
 
         try:
-            return requests.post(
+            return requests.get(
                 self.urls.transaction_status,
                 json=transaction_query,
                 headers=self.default_headers(),
