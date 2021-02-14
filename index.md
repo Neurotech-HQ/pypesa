@@ -110,7 +110,12 @@ If you named your authentication json in other name than **keys.json**,  you nee
 ```python
 import pypesa
 mpesa = pypesa(auth_path = filename)
-``` 
+```
+
+Note:
+please Make sure you specify the correct path while while creating a pypesa instance 
+otherwise Pypesa will raise **KeyError** 
+
 
 Explicit auth within source code
 --------------------------------
@@ -133,6 +138,10 @@ Note;
 Customer to Bussiness (C2B) in Pypesa
 -------------------------------------
 
+As the method name suggets *customer_to_bussiness()*, use this method to process payments whereby customers do some payment to a particular bussinss account.
+
+As explained at the top, the journey to integrate is made smooth as possible, what you have to do is to prepare a *transaction_query{}* dictionary of the payment to be made and then do your transaction, just as illustrated in the example below;
+
 ```python
 >> import pypesa 
 >> mpesa = pypesa()
@@ -147,7 +156,46 @@ Customer to Bussiness (C2B) in Pypesa
       "input_PurchasedItemsDesc": "Python Book"
   }
 >> mpesa.customer_to_bussiness(transaction_query)
+
+{'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully', 'output_TransactionID': 'RvvsqB0rcP3Y', 'output_ConversationID': '1e029550d09745e7b2221bb4b2dc8ffc', 'output_ThirdPartyConversationID': '2edf7a0206d848f6b6fedea26accdc3a'}
+
 ```
+
+Good news !! As we can see above, our payments was sucessfully processed by the sandbox. 
+
+But you have to be carefully while writing your transaction_query by making sure all the neccessary keys are specified with their correct type.
+
+Pypesa do **pre-validation** before sending a request to vodacom openapi to ensure all the keys for particular transaction are present and it will raise **keyError** if any of the neccessary key is missing.  
+
+For instance let's repeat doing the previous transaction but with a  a missing **input_PurchasedItemsDesc** field.
+
+```python
+>> import pypesa 
+>> mpesa = pypesa()
+>> transaction_query = {
+      "input_Amount": "10", 
+      "input_Country": "TZN", 
+      "input_Currency": "TZS", 
+      "input_CustomerMSISDN": "000000000001", 
+      "input_ServiceProviderCode": "000000", 
+      "input_ThirdPartyConversationID":'2edf7a0206d848f6b6fedea26accdc3a', 
+      "input_TransactionReference": 'T23434ZE5',
+  }
+>> mpesa.customer_to_bussiness(transaction_query)
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/kalebu/.local/lib/python3.8/site-packages/pypesa/__init__.py", line 77, in authorized_method
+    return method(self, *args, **kwargs)
+  File "/home/kalebu/.local/lib/python3.8/site-packages/pypesa/__init__.py", line 299, in customer_to_bussiness
+    self.verify_query(transaction_query,
+  File "/home/kalebu/.local/lib/python3.8/site-packages/pypesa/__init__.py", line 288, in verify_query
+    raise KeyError(
+KeyError: "These keys {'input_PurchasedItemsDesc'} are missing in your transaction query"
+
+```
+
+
 
 Bussiness to Customer (B2C) in Pypesa
 -------------------------------------
@@ -270,4 +318,4 @@ The package run by default using sandbox environmnent, If you wanna use it to re
 >>>mpesa = Mpesa(environmnent="production")
 ```
 
-All the Credits to [kalebu](github.com/kalebu)
+All the Credits to [kalebu](https://github.com/kalebu)
