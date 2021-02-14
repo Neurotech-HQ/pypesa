@@ -239,24 +239,34 @@ Done!! Just like we have already made our b2c transaction in a sandbox
 
 Bussiness to Bussiness in PyPesa
 --------------------------------------
+
+Use *bussiness_to_bussiness()* while doing transaction from one bussiness account to another bussiness account;
+
+Here is an example on how you would do that in pypesa;
+
 ```python
 >> import pypesa
->> mpesa = pypesa()
+>> mpesa = pypesa() 
 >> transaction_query = {
       'input_Amount': 10,
       'input_Country': 'TZN',
       'input_Currency': 'TZS',
-      'input_CustomerMSISDN': '000000000001',
+      'input_PrimaryPartyCode':'000000',
+      'input_ReceiverPartyCode':'000001',
       'input_ServiceProviderCode': '000000',
-      'input_ThirdPartyConversationID': 'asv02e5958774f7ba228d83d0d689761',
+      'input_ThirdPartyConversationID': '8a89835c71f15e99396',
       'input_TransactionReference': 'T1234C',
       'input_PurchasedItemsDesc': 'Shoes',
    }
 >> mpesa.bussiness_to_bussiness(transaction_query) 
+
+{'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully', 'output_TransactionID': '4iUThBRRWXMG', 'output_ConversationID': 'f3ca96e7cb7f473a847247d8b887b922', 'output_ThirdPartyConversationID': '8a89835c71f15e99396'}
+
 ```
 
 Payment Reversal in Pypesa
 --------------------------
+
 ```python
 >> import pypesa
 >> mpesa = pypesa()
