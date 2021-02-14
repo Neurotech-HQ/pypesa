@@ -141,7 +141,13 @@ Note;
 Customer to Bussiness in Pypesa
 -------------------------------------
 
-As the method name suggets *customer_to_bussiness()*, use this method to process payments whereby customers do some payment to a particular bussinss account.
+The C2B API call is used as a standard customer-to-business transaction. Funds from the customer’s mobile money wallet will be deducted and be transferred to the mobile money wallet of the business. 
+
+To authenticate and authorize this transaction, M-Pesa Payments Gateway will initiate a USSD Push message to the customer to gather and verify the mobile money PIN number. 
+
+This number is not stored and is used only to authorize the transaction.
+
+Use  *customer_to_bussiness()* method to process these kind of payments in Pypesa
 
 As explained at the top, the journey to integrate is made smooth as possible, what you have to do is to prepare a *transaction_query{}* dictionary of the payment to be made and then do your transaction, just as illustrated in the example below;
 
@@ -212,7 +218,13 @@ When you try to do a transaction without internet connection, pypesa will raise 
 
 Bussiness to Customer in Pypesa
 -------------------------------
-As the suggests, use *bussiness_to_customer()* to handle transaction from particular bussiness account to customers.
+
+The B2C API Call is used as a standard business-to-customer funds disbursement. Funds from the business account’s wallet will be deducted and paid to the mobile money wallet of the customer. Use cases for the B2C includes:
+•	Salary payments 
+•	Funds transfers from business
+•	Charity pay-out
+
+Use *bussiness_to_customer()* method to handle transaction from particular bussiness account to customers.
 
 It's just samewise as how you would *customer_to_bussiness()* transaction, the only difference is the keys that needs to be specified while structuring a transaction_query.
 
@@ -246,9 +258,16 @@ Done!! Just like we have already made our b2c transaction in a sandbox
 Bussiness to Bussiness in PyPesa
 --------------------------------------
 
-Use *bussiness_to_bussiness()* while doing transaction from one bussiness account to another bussiness account;
+The B2B API Call is used for business-to-business transactions. Funds from the business’ mobile money wallet will be deducted and transferred to the mobile money wallet of the other business.
 
-Here is an example on how you would do that in pypesa;
+ Use cases for the B2C includes: 
+    • Stock purchases 
+    • Bill payment 
+    • Ad-hoc payment
+
+Use *bussiness_to_bussiness()* method while doing b2b transaction in Pypesa, 
+
+Here is an example on how you would do that;
 
 ```python
 >> import pypesa
@@ -329,45 +348,60 @@ Here also you can use your previous transaction ID as an input_QueryReference as
 
 Direct debit creation and Payment
 ---------------------------------
+Direct Debits are payments in M-Pesa that are initiated by the Payee alone without any Payer interaction, but permission must first be granted by the Payer. The granted permission from the Payer to Payee is commonly termed a ‘Mandate’, and M-Pesa must hold details of this Mandate.
 
-Direct debit Creation 
+The Direct Debit API set allows an organisation to get the initial consent of their customers to create the Mandate that allows the organisation to debit customer's account at an agreed frequency and amount for services rendered. After the initial consent, the debit of the account will not involve any customer interaction. The Direct Debit feature makes use of the following API calls:
+•	Create a Direct Debit mandate
+•	Pay a mandate
+
+The customer is able to view and cancel the Direct Debit mandate from G2 menu accessible via USSD menu or the Smartphone Application.
+
+Use _create_direct_debit()_ method to create one in Pypesa as shown in the example below;
 
 ```python
 >> import pypesa
 >> mpesa = pypesa()
 >> transaction_query = {
-        "input_AgreedTC":"something",
-        "input_Country":"something",
-        "input_CustomerMSISDN":"something",
-        "input_EndRangeOfDays":"something",
-        "input_ExpiryDate":"something",
-        "input_FirstPaymentDate":"something",
-        "input_Frequency":"something",
-        "input_ServiceProviderCode":"something",
-        "input_StartRangeOfDays":"something",
-        "input_ThirdPartyConversationID":"something",
-        "input_ThirdPartyReference":"something",
+      "input_AgreedTC": "1",
+      "input_Country": "TZN",
+      "input_CustomerMSISDN": "000000000001",
+      "input_EndRangeOfDays": "22",
+      "input_ExpiryDate": "20211126",
+      "input_FirstPaymentDate": "20160324",
+      "input_Frequency": "06",
+      "input_ServiceProviderCode": "000000",
+      "input_StartRangeOfDays": "01",
+      "input_ThirdPartyConversationID": "5334a912jbsj1j2kk1",
+      "input_ThirdPartyReference": "3333",
     }
 >> mpesa.create_direct_debit(transaction_query)
+
+{'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully', 'output_TransactionReference': '3333', 'output_ConversationID': '8eedbfb665284bdc9e5c548fa96e996a', 'output_ThirdPartyConversationID': '5334a912jbsj1j2kk1'}
+
 ```
 
 ⮕ [Back to the menu](#table-of-content)
 
-Direct debit Payment 
+Direct Debit Payment 
+--------------------
+
+Here an Pypesa example on how how you can do direct Debit Payment in Pypesa using the _direct debit payment()_;
 
 ```python
 >> import pypesa
 >> mpesa = pypesa()
 >> transaction_query = {        
-        "input_Amount":"something",
-        "input_Country":"something",
-        "input_Currency":"something",
-        "input_CustomerMSISDN":"something",
-        "input_ServiceProviderCode":"something",
-        "input_ThirdPartyConversationID":"something",
-        "input_ThirdPartyReference":"something",
+      "input_Amount": "10",
+      "input_Country": "TZN",
+      "input_Currency": "TZS",
+      "input_CustomerMSISDN": "000000000001",
+      "input_ServiceProviderCode": "000000",
+      "input_ThirdPartyConversationID": "v2de053v4912jbasdj1j2kk",
+      "input_ThirdPartyReference": "5db410b459bd433ca8e5"
     }
 >> mpesa.direct_debit_payment(transaction_query)
+{'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully', 'output_TransactionID': 'js38ecMBpNoF', 'output_ConversationID': '263f515f8d464408b764b0f1bdbc0105', 'output_ThirdPartyConversationID': 'v2de053v4912jbasdj1j2kk'}
+
 ```
 ⮕ [Back to the menu](#table-of-content)
 
@@ -382,5 +416,20 @@ The package run by default using sandbox environmnent, If you wanna use it to re
 ```
 
 ⮕ [Back to the menu](#table-of-content)
+
+
+Related Projects 
+  - [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
+  - [Tigopesa-tanzania](https://github.com/dbrax/tigopesa-tanzania)
+  - [Pesapal-laravel](https://github.com/dbrax/pesapal-laravel)
+  - [Tigopesa Web Documentation](https://github.com/zechtz/tigoPesa)
+
+
+References
+  - [official Mpesa api Documentation](https://openapiportal.m-pesa.com/api-documentation)    
+  - [Getting started with Mpesa Developer Portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4)
+  - [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
+
+
 
 All the Credits to [kalebu](https://github.com/kalebu)
