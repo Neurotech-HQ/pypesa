@@ -419,6 +419,8 @@ The package run by default using sandbox environmnent, If you wanna use it to re
 
 
 Related Projects 
+----------------
+
   - [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
   - [Tigopesa-tanzania](https://github.com/dbrax/tigopesa-tanzania)
   - [Pesapal-laravel](https://github.com/dbrax/pesapal-laravel)
@@ -426,6 +428,8 @@ Related Projects
 
 
 References
+-----------
+
   - [official Mpesa api Documentation](https://openapiportal.m-pesa.com/api-documentation)    
   - [Getting started with Mpesa Developer Portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4)
   - [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
