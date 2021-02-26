@@ -1,4 +1,10 @@
-# pypesa
+# [pypesa](http://kalebu.github.io/pypesa)
+
+[![Downloads](https://pepy.tech/badge/python-pesa)](https://pepy.tech/project/python-pesa)
+[![Downloads](https://pepy.tech/badge/python-pesa/month)](https://pepy.tech/project/python-pesa)
+[![Downloads](https://pepy.tech/badge/python-pesa/week)](https://pepy.tech/project/python-pesa)
+
+
 Python wrapper on **Mpesa public API** for mobile Payment Integration 
 
 

@@ -2,10 +2,10 @@ from distutils.core import setup
 
 setup(
     name="python-pesa",
-    version="0.2",
+    version="0.3",
     description='Python package for Vodacom Mpesa API Integration',
     url='https://github.com/Kalebu/pypesa',
-    download_url="https://github.com/Kalebu/pypesa/archive/0.2.tar.gz",
+    download_url="https://github.com/Kalebu/pypesa/archive/0.3.tar.gz",
     author="Jordan Kalebu",
     author_email="isaackeinstein@gmail.com",
     license="MIT",
