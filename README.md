@@ -5,7 +5,10 @@
 [![Downloads](https://pepy.tech/badge/python-pesa/week)](https://pepy.tech/project/python-pesa)
 
 
-Python wrapper on **Mpesa public API** for mobile Payment Integration 
+Python wrapper on **Mpesa public API** for mobile Payment Integration made with care to offer easy and elegant integration made by [kalebu](https://github.com/kalebu)
+
+<a href="https://www.buymeacoffee.com/kalebuj" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 
 
 ## Features to implemeted 
