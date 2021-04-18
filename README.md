@@ -1,5 +1,5 @@
 # [pypesa](http://kalebu.github.io/pypesa)
-[![Pypesa banner](pictures/banner.png)](https://kalebu.github.io/pypesa/)
+[![Pypesa banner](pictures/pypesa-banner.png)](https://kalebu.github.io/pypesa/)
 [![Downloads](https://pepy.tech/badge/python-pesa)](https://pepy.tech/project/python-pesa)
 [![Downloads](https://pepy.tech/badge/python-pesa/month)](https://pepy.tech/project/python-pesa)
 [![Downloads](https://pepy.tech/badge/python-pesa/week)](https://pepy.tech/project/python-pesa)
