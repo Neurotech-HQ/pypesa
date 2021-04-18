@@ -1,8 +1,13 @@
 # [pypesa](http://kalebu.github.io/pypesa)
+
 [![Pypesa banner](pictures/pypesa-banner.png)](https://kalebu.github.io/pypesa/)
+[![PyPI version](https://badge.fury.io/py/python-pesa.svg)](https://badge.fury.io/py/python-pesa)
+[![Releases](https://badgen.net/github/releases/kalebu/pypesa)](https://github.com/Kalebu/pypesa)
 [![Downloads](https://pepy.tech/badge/python-pesa)](https://pepy.tech/project/python-pesa)
 [![Downloads](https://pepy.tech/badge/python-pesa/month)](https://pepy.tech/project/python-pesa)
 [![Downloads](https://pepy.tech/badge/python-pesa/week)](https://pepy.tech/project/python-pesa)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 
 Python wrapper on **Mpesa public API** for mobile Payment Integration made with care to offer easy and elegant integration made by [kalebu](https://github.com/kalebu)
