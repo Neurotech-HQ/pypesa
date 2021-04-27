@@ -15,13 +15,9 @@ Python wrapper on **Mpesa public API** for mobile Payment Integration made with 
 
 [![Become a patron](pictures/become_a_patron_button.png)](https://www.patreon.com/kalebujordan)
 
+## Implemented Features
 
-## Features to implemeted 
-
-The following are the features that are supported by the **Mpesa** public API
-
-and require the **python** implementation.
-
+The following are the features that are supported by the **Mpesa** public API and require the **python** implementation.
 
 - [x] Customer to Bussiness (C2B) Single Payment 
 - [x] Bussiness to Customer (B2C)
@@ -33,7 +29,7 @@ and require the **python** implementation.
 
 ## Documentation 
 
-Full Documentation can be found on [pypesa](http://kalebu.github.io/pypesa)
+Full documentation can be found on [pypesa](http://kalebu.github.io/pypesa)
 
 
 ## Getting started 
@@ -71,9 +67,10 @@ $ pypesa ~ python setup.py install
 ```
 
 - Using pip
-```
 
-$~ pip install python-pesa
+```bash
+
+pip install python-pesa
 
 ```
 
@@ -92,7 +89,8 @@ To begin using the package is pretty straight forward
     }
   ```
 
-2. Once done you're ready to go, just make sure you have active internet connection
+2.Once done you're ready to go, just make sure you have active internet connection
+
 ### Example of Usage (Customer to Bussiness Transaction)
 
 ```python
@@ -114,12 +112,13 @@ Request processed successfully   INS-0
 ```
 
 ### Naming the authentication json
+
 If you named your authentication json in other name than **keys** you might to 
 specify it while creating an instance for mpesa just as shown below;
 
 ```python
->>>from pypesa import Mpesa
->>>mpesa = Mpesa(auth_path = filename)
+>>>import pypesa
+>>>mpesa = pypesa(auth_path = filename)
 ``` 
 
 ## production environmnent
@@ -128,33 +127,29 @@ The package run by default using sandbox environmnent, If you wanna use it to re
 environmnent you can specify it while creating an instance as shown below 
 
 ```python
->>>from pypesa import Mpesa
->>>mpesa = Mpesa(environmnent="production")
+>>>import pypesa
+>>>mpesa = pypesa(environmnent="production")
 ```
 
 ## To do list 
 
-- Adding a well structured documentation
-- Adding a detailed test case to the implementation 
-- Fixing rising bugs 
+- [x] Adding a well structured documentation
+- [] Adding a detailed test case to the implementation 
+- [] Fixing rising bugs 
 
 ## Contributing 
 
 Wanna contribute to Pypesa ? then please [contributing.md](https://github.com/Kalebu/pypesa/blob/main/Contributing.md) to see how 
 
+## Give it a star
 
-## Give it a star 
-
-If you found this repository useful, give it a star 
-
-You can also keep in touch with on [Twitter](https://twitter.com/j_kalebu).
-
+If you found this repository useful, give it a star, You can also keep in touch with on [twitter](https://twitter.com/j_kalebu).
 
 ## Bug bounty?
 
 If you encounter **issue** with the usage of the package, feel free raise an **issue** so as 
 we can fix it as soon as possible(ASAP) or just reach me directly through my email isaackeinstein(at)gmail.com
 
+## Credit
 
-
-
+All the credits to [kalebu](https://github.com/Kalebu/) and all the future contributors
