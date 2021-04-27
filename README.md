@@ -94,9 +94,9 @@ To begin using the package is pretty straight forward
 ### Example of Usage (Customer to Bussiness Transaction)
 
 ```python
->>>import pypesa
->>>mpesa = pypesa()
->>>transaction_query = {"input_Amount": "10", 
+>>> import pypesa
+>>> mpesa = pypesa()
+>>> transaction_query = {"input_Amount": "10", 
                         "input_Country": "TZN", 
                         "input_Currency": "TZS", 
                         "input_CustomerMSISDN": "000000000001", 
@@ -105,10 +105,12 @@ To begin using the package is pretty straight forward
                         "input_TransactionReference": 'T23434ZE5',
                         "input_PurchasedItemsDesc": "Python Book"
 }
->>>mpesa.customer_to_bussiness(transaction_query)
+>>> mpesa.customer_to_bussiness(transaction_query)
+
 Request processed successfully   INS-0
 {'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully',
  'output_TransactionID': 'uGnPxFoXT2W0', 'output_ConversationID': '1d1e38495dc946729a8cffb136ab8391', 'output_ThirdPartyConversationID': '2edf7a0206d848f6b6fedea26accdc3a'}
+
 ```
 
 ### Naming the authentication json
@@ -117,8 +119,8 @@ If you named your authentication json in other name than **keys** you might to
 specify it while creating an instance for mpesa just as shown below;
 
 ```python
->>>import pypesa
->>>mpesa = pypesa(auth_path = filename)
+>>> import pypesa
+>>> mpesa = pypesa(auth_path = filename)
 ``` 
 
 ## production environmnent
@@ -127,8 +129,8 @@ The package run by default using sandbox environmnent, If you wanna use it to re
 environmnent you can specify it while creating an instance as shown below 
 
 ```python
->>>import pypesa
->>>mpesa = pypesa(environmnent="production")
+>>> import pypesa
+>>> mpesa = pypesa(environmnent="production")
 ```
 
 ## To do list 
