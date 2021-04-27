@@ -136,8 +136,8 @@ environmnent you can specify it while creating an instance as shown below
 ## To do list 
 
 - [x] Adding a well structured documentation
-- [] Adding a detailed test case to the implementation 
-- [] Fixing rising bugs 
+- [ ] Adding a detailed test case to the implementation 
+- [ ] Fixing rising bugs 
 
 ## Contributing 
 
