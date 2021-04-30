@@ -9,6 +9,7 @@ import base64
 import socket
 import requests
 from pathlib import Path
+from functools import wraps
 from .service_urls import sandbox, production
 from typing import Optional, Union
 from Crypto.PublicKey import RSA
@@ -72,6 +73,7 @@ class Mpesa(object):
             return False
 
     def authenticated(method):
+        @wraps(method)
         def authorized_method(self, *args, **kwargs):
             if self.authenticate:
                 return method(self, *args, **kwargs)
@@ -294,7 +296,9 @@ class Mpesa(object):
 
     @authenticated
     def customer_to_bussiness(self, transaction_query: dict) -> dict:
-        """"""
+        """
+        Customer to bussiness() 
+        """
 
         self.verify_query(transaction_query,
                           self.urls.re_customer_to_bussiness)
@@ -312,7 +316,9 @@ class Mpesa(object):
 
     @authenticated
     def bussiness_to_customer(self, transaction_query: dict) -> dict:
-        """"""
+        """
+        Bussiness to customer()
+        """
 
         self.verify_query(transaction_query,
                           self.urls.re_bussiness_to_customer)
@@ -331,7 +337,9 @@ class Mpesa(object):
 
     @authenticated
     def bussiness_to_bussiness(self, transaction_query: dict) -> dict:
-        """"""
+        """
+        Bussiness to bussiness()
+        """
 
         self.verify_query(transaction_query,
                           self.urls.re_bussiness_to_bussiness)
@@ -349,7 +357,9 @@ class Mpesa(object):
 
     @authenticated
     def payment_reversal(self, transaction_query: dict) -> dict:
-        """"""
+        """
+        Payment reversal()
+        """
 
         self.verify_query(transaction_query, self.urls.re_payment_reversal)
 
@@ -366,7 +376,9 @@ class Mpesa(object):
 
     @authenticated
     def query_transaction_status(self, transaction_query: dict) -> dict:
-        """"""
+        """
+        Query transaction status()
+        """
 
         self.verify_query(transaction_query, self.urls.re_transaction_status)
 
@@ -383,7 +395,9 @@ class Mpesa(object):
 
     @authenticated
     def create_direct_debit(self, transaction_query: dict) -> dict:
-        """"""
+        """
+        Create direct Debit()
+        """
 
         self.verify_query(transaction_query, self.urls.re_create_direct_debit)
 
@@ -400,7 +414,9 @@ class Mpesa(object):
 
     @authenticated
     def direct_debit_payment(self, transaction_query: dict) -> dict:
-        """"""
+        """
+        Direct debit payment ()
+        """
         self.verify_query(transaction_query, self.urls.re_direct_debit_payment)
 
         try:
