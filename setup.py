@@ -1,11 +1,21 @@
-from distutils.core import setup
+from os import path
+from setuptools import setup
+
+# read the contents of your description file
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'description.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 
 setup(
     name="python-pesa",
-    version="0.3",
+    version="0.6",
     description='Python package for Vodacom Mpesa API Integration',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/Kalebu/pypesa',
-    download_url="https://github.com/Kalebu/pypesa/archive/0.3.tar.gz",
+    download_url="https://github.com/Kalebu/pypesa/archive/0.4.tar.gz",
     author="Jordan Kalebu",
     author_email="isaackeinstein@gmail.com",
     license="MIT",
