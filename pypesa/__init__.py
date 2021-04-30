@@ -298,6 +298,22 @@ class Mpesa(object):
     def customer_to_bussiness(self, transaction_query: dict) -> dict:
         """
         Customer to bussiness() 
+
+        Example;
+
+        >> import pypesa 
+        >> mpesa = pypesa()
+        >> transaction_query = {
+            "input_Amount": "10", 
+            "input_Country": "TZN", 
+            "input_Currency": "TZS", 
+            "input_CustomerMSISDN": "000000000001", 
+            "input_ServiceProviderCode": "000000", 
+            "input_ThirdPartyConversationID":'2edf7a0206d848f6b6fedea26accdc3a', 
+            "input_TransactionReference": 'T23434ZE5',
+            "input_PurchasedItemsDesc": "Python Book"
+        }
+        >> mpesa.customer_to_bussiness(transaction_query)
         """
 
         self.verify_query(transaction_query,
@@ -318,6 +334,24 @@ class Mpesa(object):
     def bussiness_to_customer(self, transaction_query: dict) -> dict:
         """
         Bussiness to customer()
+
+        Example;
+
+        >> import pypesa
+        >> mpesa = pypesa()
+        >> transaction_query = {
+            'input_Amount': 250,
+            'input_Country': 'TZN',
+            'input_Currency': 'TZS',
+            'input_CustomerMSISDN': '000000000001',
+            'input_ServiceProviderCode': '000000',
+            'input_ThirdPartyConversationID':'f5e420e99594a9c496d8600',
+            'input_TransactionReference': 'T12345C',
+            'input_PaymentItemsDesc': 'Donation',
+        }
+
+        >> mpesa.bussiness_to_customer(transaction_query)
+
         """
 
         self.verify_query(transaction_query,
@@ -339,6 +373,23 @@ class Mpesa(object):
     def bussiness_to_bussiness(self, transaction_query: dict) -> dict:
         """
         Bussiness to bussiness()
+
+        Example;
+
+        >> import pypesa
+        >> mpesa = pypesa() 
+        >> transaction_query = {
+            'input_Amount': 10,
+            'input_Country': 'TZN',
+            'input_Currency': 'TZS',
+            'input_PrimaryPartyCode':'000000',
+            'input_ReceiverPartyCode':'000001',
+            'input_ServiceProviderCode': '000000',
+            'input_ThirdPartyConversationID': '8a89835c71f15e99396',
+            'input_TransactionReference': 'T1234C',
+            'input_PurchasedItemsDesc': 'Shoes',
+        }
+        >> mpesa.bussiness_to_bussiness(transaction_query) 
         """
 
         self.verify_query(transaction_query,
@@ -359,6 +410,20 @@ class Mpesa(object):
     def payment_reversal(self, transaction_query: dict) -> dict:
         """
         Payment reversal()
+
+        Example;
+
+        >> import pypesa
+        >> mpesa = pypesa()
+        >> transaction_query = {
+            'input_ReversalAmount':10,
+            'input_Country': 'TZN',
+            'input_ServiceProviderCode': '000000',
+            'input_ThirdPartyConversationID':'asvf7ba228d83d0d689761',
+            'input_TransactionID':'4iUThBRRWXMG'
+            }
+        >> mpesa.payment_reversal(transaction_query)
+
         """
 
         self.verify_query(transaction_query, self.urls.re_payment_reversal)
@@ -378,6 +443,19 @@ class Mpesa(object):
     def query_transaction_status(self, transaction_query: dict) -> dict:
         """
         Query transaction status()
+
+        Example;
+
+        >> import pypesa
+        >> mpesa = pypesa()
+        >> transaction_query = {
+            'input_QueryReference': '000000000000000000001',
+            'input_ServiceProviderCode': '000000',
+            'input_ThirdPartyConversationID': 'asv02e5958774f7ba228d83d0d689761',
+            'input_Country': 'TZN',
+            }
+        >> mpesa.query_transaction_status(transaction_query)
+
         """
 
         self.verify_query(transaction_query, self.urls.re_transaction_status)
@@ -397,6 +475,23 @@ class Mpesa(object):
     def create_direct_debit(self, transaction_query: dict) -> dict:
         """
         Create direct Debit()
+
+        >> import pypesa
+        >> mpesa = pypesa()
+        >> transaction_query = {
+            "input_AgreedTC": "1",
+            "input_Country": "TZN",
+            "input_CustomerMSISDN": "000000000001",
+            "input_EndRangeOfDays": "22",
+            "input_ExpiryDate": "20211126",
+            "input_FirstPaymentDate": "20160324",
+            "input_Frequency": "06",
+            "input_ServiceProviderCode": "000000",
+            "input_StartRangeOfDays": "01",
+            "input_ThirdPartyConversationID": "5334a912jbsj1j2kk1",
+            "input_ThirdPartyReference": "3333",
+            }
+        >> mpesa.create_direct_debit(transaction_query)
         """
 
         self.verify_query(transaction_query, self.urls.re_create_direct_debit)
@@ -416,6 +511,20 @@ class Mpesa(object):
     def direct_debit_payment(self, transaction_query: dict) -> dict:
         """
         Direct debit payment ()
+
+        >> import pypesa
+        >> mpesa = pypesa()
+        >> transaction_query = {        
+            "input_Amount": "10",
+            "input_Country": "TZN",
+            "input_Currency": "TZS",
+            "input_CustomerMSISDN": "000000000001",
+            "input_ServiceProviderCode": "000000",
+            "input_ThirdPartyConversationID": "v2de053v4912jbasdj1j2kk",
+            "input_ThirdPartyReference": "5db410b459bd433ca8e5"
+            }
+        >> mpesa.direct_debit_payment(transaction_query)
+
         """
         self.verify_query(transaction_query, self.urls.re_direct_debit_payment)
 
