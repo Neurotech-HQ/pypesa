@@ -1,15 +1,13 @@
-## Welcome to PyPesa Official Documentation 
-
-Hi welcome to Official PyPesa Documentation 
+# Pypesa
 
 Pypesa is python wrapper on **Mpesa public API** for mobile Payment Integration made with care, this package is aimed to make integrating with Vodacom Mpesa Api as smooth as 
 possible for newbie and Pro Devs.
 
-Transaction query  ⮕  Pypesa  ⮕ Done  
+_Transaction query  ⮕  Pypesa  ⮕ Done_
 
-### Opensource 
+## Opensource 
 
-Pypesa is an opensource project under MIT public license, the complete source code can be found at [pypesa](https://kalebu.github.io/pypesa), I welcome contributors to the package whether its a code or documentation you're warmly welcome. 
+Pypesa is an opensource project under MIT public license, the complete source code can be found at [pypesa](https://kalebu.github.io/pypesa), I welcome contributors to the package whether its a code or documentation you're warmly welcome.
 
 You can Take a look at [contributing.md](https://github.com/Kalebu/pypesa/blob/main/Contributing.md) for more guide on howto.
 
@@ -23,6 +21,7 @@ pip install python-pesa
 ```
 
 To make sure you install the latest version of Pypesa to keep yourself updated do this;
+
 ```bash
 pip install --upgrade python-pesa
 ```
@@ -35,7 +34,7 @@ cd pypesa
 pypesa-> python setup.py install 
 ```
 
-## One More Step 
+## One More Step
 
 In order to able to integrate with Mpesa-Api you need an (api key) and (public key) from Vodacom, They offer two kinds of them one for Sandbox(Experimenting) and Production(Deployment).
 
@@ -49,9 +48,7 @@ Here is an article on how to easily get your authentication keys
 
 [Getting started with Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
 
-
-What Pypesa allows you to do ?
-------------------------------
+## What Pypesa allows you to do ?
 
 With Pypesa package you will be able to do the following kind of transaction 
 
@@ -62,12 +59,11 @@ With Pypesa package you will be able to do the following kind of transaction
 - [x]  Query Transaction status 
 - [x]  Direct debit creation and Payment
 
+## Pypesa Usage
 
-## Pypesa Usage 
-Guide to usage of the Pypesa package 
+Guide to usage of the Pypesa package;
 
-Table of Content 
------------------
+## Table of Content 
 
 1. [Authentication](#authentication-in-pypesa) 
 2. [Customer to Bussiness(C2B) Single Payment](#customer-to-bussiness-in-pypesa) 
@@ -78,18 +74,17 @@ Table of Content
 7. [Direct debit creation and Payment](#direct-debit-creation-and-payment) 
 8. [Deployment to Production](#deployment-to-production)
 
-Authentication in Pypesa
-------------------------
+
+## Authentication in Pypesa
 
 Pypesa offers two distinct ways to authenticate your app
 
 It all comes to you on which one you might find friendly and cool, personally I prefer putting them on separate file ([Using Json](#authentication-using-json)).
 
-  - [Using Json](#authentication-using-json) 
-  - [Including in your src code](#explicit-auth-within-source-code)
+- [Using json](#authentication-using-json) 
+- [Including in your src code](#explicit-auth-within-source-code)
 
-authentication using Json 
--------------------------
+## Authentication using json 
 
 To authenticate your app using json, you need to have a json file named **keys.json** on your project directory and then add your public and api keys in json format shown below;
 
@@ -116,11 +111,10 @@ mpesa = pypesa(auth_path = filename)
 
 Note:
 please Make sure you specify the correct path while while creating a pypesa instance 
-otherwise Pypesa will raise **KeyError** 
+otherwise Pypesa will raise **KeyError** ;
 
+## Explicit auth within source code
 
-Explicit auth within source code
---------------------------------
 Apart from authenticating your python app using Json, you can also explicit specify the key in your code just as shown below;
 
 ```python
@@ -132,14 +126,11 @@ mpesa.api_key = "xxxxxxxxxxxxx"
 mpesa.public_key ="xxxxxxxxxxxxx"
 ```
 
-Note;
-
-    Please Make sure you're keys are strings, pypesa will raise a TypeError() if you set it to other type than it.
+**Note**: Please Make sure you're keys are strings, pypesa will raise a TypeError() if you set it to other type than it.
 
 ⮕ [Back to the menu](#table-of-content)
 
-Customer to Bussiness in Pypesa
--------------------------------------
+## Customer to Bussiness in Pypesa
 
 The C2B API call is used as a standard customer-to-business transaction. Funds from the customer’s mobile money wallet will be deducted and be transferred to the mobile money wallet of the business. 
 
@@ -210,14 +201,13 @@ KeyError: "These keys {'input_PurchasedItemsDesc'} are missing in your transacti
 
 Pypesa will does not verify your authentication instantly as you create a pypesa instance, instead it will verify them while submitting a request of particular transaction, so that means if you have put invalid api-key or public-key you will experience an **Authentication Error**
 
-###  MpesaConnectionError
+### MpesaConnectionError
 
 When you try to do a transaction without internet connection, pypesa will raise **MpesaConnectionError**, So make sure you have an active intenet connection when doing it so  
 
 ⮕ [Back to the menu](#table-of-content)
 
-Bussiness to Customer in Pypesa
--------------------------------
+## Bussiness to Customer in Pypesa
 
 The B2C API Call is used as a standard business-to-customer funds disbursement. Funds from the business account’s wallet will be deducted and paid to the mobile money wallet of the customer. Use cases for the B2C includes:
 •	Salary payments 
@@ -255,8 +245,7 @@ Done!! Just like we have already made our b2c transaction in a sandbox
 
 ⮕ [Back to the menu](#table-of-content)
 
-Bussiness to Bussiness in PyPesa
---------------------------------------
+## Bussiness to Bussiness in PyPesa
 
 The B2B API Call is used for business-to-business transactions. Funds from the business’ mobile money wallet will be deducted and transferred to the mobile money wallet of the other business.
 
@@ -291,17 +280,18 @@ Here is an example on how you would do that;
 
 ⮕ [Back to the menu](#table-of-content)
 
-Payment Reversal in Pypesa
---------------------------
+## Payment Reversal in Pypesa
+
 The Reversal API is used to reverse a successful transaction. Using the Transaction ID of a previously successful transaction,  the OpenAPI will withdraw the funds from the recipient party’s mobile money wallet and revert the funds to the mobile money wallet of the initiating party of the original transaction.
 
 Use *payment_reversal()* method to reverse a transaction in pypesa, the most important thing to consider is the **output_TransactionID** of the previous transaction.
 
-For instance if we take a look at json response of a previous b2b transaction we have done above illustrated below; 
+For instance if we take a look at json response of a previous b2b transaction we have done above illustrated below;
 
-```
+```json
 {'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully', 'output_TransactionID': '4iUThBRRWXMG', 'output_ConversationID': 'f3ca96e7cb7f473a847247d8b887b922', 'output_ThirdPartyConversationID': '8a89835c71f15e99396'}
 ```
+
  We can see the value of **output_TransactionID** to be **4iUThBRRWXMG**, Let's note that and use it reverse that transaction, If you had a different ID just do the same from json response of a transaction you would like to reverse;
 
  Our code to reverse it, would probably look like this;
@@ -323,8 +313,8 @@ For instance if we take a look at json response of a previous b2b transaction we
 ⮕ [Back to the menu](#table-of-content)
 
 
-Query Transaction status in Pypesa
-----------------------------------
+## Query Transaction status in Pypesa
+
 The Query Transaction Status API call is used to query the status of the transaction that has been initiated.
 
 Use *query_transaction_status()* to do this just as illustrated in the example below; 
@@ -346,17 +336,20 @@ Here also you can use your previous transaction ID as an input_QueryReference as
 
 ⮕ [Back to the menu](#table-of-content)
 
-Direct debit creation and Payment
----------------------------------
+## Direct debit creation and Payment
+
 Direct Debits are payments in M-Pesa that are initiated by the Payee alone without any Payer interaction, but permission must first be granted by the Payer. The granted permission from the Payer to Payee is commonly termed a ‘Mandate’, and M-Pesa must hold details of this Mandate.
 
-The Direct Debit API set allows an organisation to get the initial consent of their customers to create the Mandate that allows the organisation to debit customer's account at an agreed frequency and amount for services rendered. After the initial consent, the debit of the account will not involve any customer interaction. The Direct Debit feature makes use of the following API calls:
-•	Create a Direct Debit mandate
-•	Pay a mandate
+The Direct Debit API set allows an organisation to get the initial consent of their customers to create the Mandate that allows the organisation to debit customer's account at an agreed frequency and amount for services rendered. After the initial consent, the debit of the account will not involve any customer interaction.
+
+The Direct Debit feature makes use of the following API calls:
+
+- Create a Direct Debit mandate
+- Pay a mandate
 
 The customer is able to view and cancel the Direct Debit mandate from G2 menu accessible via USSD menu or the Smartphone Application.
 
-Use _create_direct_debit()_ method to create one in Pypesa as shown in the example below;
+Use *create_direct_debit()* method to create one in Pypesa as shown in the example below;
 
 ```python
 >> import pypesa
@@ -382,8 +375,7 @@ Use _create_direct_debit()_ method to create one in Pypesa as shown in the examp
 
 ⮕ [Back to the menu](#table-of-content)
 
-Direct Debit Payment 
---------------------
+## Direct Debit Payment 
 
 Here an Pypesa example on how how you can do direct Debit Payment in Pypesa using the _direct debit payment()_;
 
@@ -403,10 +395,10 @@ Here an Pypesa example on how how you can do direct Debit Payment in Pypesa usin
 {'output_ResponseCode': 'INS-0', 'output_ResponseDesc': 'Request processed successfully', 'output_TransactionID': 'js38ecMBpNoF', 'output_ConversationID': '263f515f8d464408b764b0f1bdbc0105', 'output_ThirdPartyConversationID': 'v2de053v4912jbasdj1j2kk'}
 
 ```
+
 ⮕ [Back to the menu](#table-of-content)
 
-Deployment to Production 
-------------------------
+## Deployment to Production 
 
 The package run by default using sandbox environmnent, If you wanna use it to real production environmnent you can specify it while creating an instance as shown below 
 
@@ -418,22 +410,23 @@ The package run by default using sandbox environmnent, If you wanna use it to re
 ⮕ [Back to the menu](#table-of-content)
 
 
-Related Projects 
-----------------
+## Related Projects 
 
-  - [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
-  - [Tigopesa-tanzania](https://github.com/dbrax/tigopesa-tanzania)
-  - [Pesapal-laravel](https://github.com/dbrax/pesapal-laravel)
-  - [Tigopesa Web Documentation](https://github.com/zechtz/tigoPesa)
+- [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
+- [Tigopesa-tanzania](https://github.com/dbrax/tigopesa-tanzania)
+- [Tigo-paygate](https://github.com/bentesha/tigo-paygate)
+- [Pesapal-laravel](https://github.com/dbrax/pesapal-laravel)
+- [Tigopesa Web Documentation](https://github.com/zechtz/tigoPesa)
 
+## References
 
-References
------------
+- [official Mpesa api Documentation](https://openapiportal.m-pesa.com/api-documentation)    
+- [Getting started with Mpesa Developer Portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4)
+- [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
 
-  - [official Mpesa api Documentation](https://openapiportal.m-pesa.com/api-documentation)    
-  - [Getting started with Mpesa Developer Portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4)
-  - [Pypesa](https://github.com/openpesa/pypesa) by [Openpesa](https://github.com/openpesa)
-
-
+## Credits
 
 All the Credits to [kalebu](https://github.com/kalebu)
+
+
+Back to [Home](https://kalebu.github.io/)
