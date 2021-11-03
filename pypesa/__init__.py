@@ -1,8 +1,35 @@
-"""Python package for Vodacom Mpesa API Integration.
+"""
+pypesa: A Python wrapper on Mpesa public API for mobile payments Integration.
+=============================================================================
+
+Documentation is available in the docstrings
+and online at http://kalebu.github.io/pypesa
+
+Contents
+--------
+pypesa contents goes here!
+
+Subpackages
+-----------
+Using any of the pypesa subpackages requires either
+an explicit or implicit import. For example,
+``import pypesa`` | ``import pypesa.mpesa`` | ``from pypesa import Mpesa``.
+
+::
+
+ mpesa                    --- Mpesa class
+ mpesa_exceptions         --- Exception classes
+ service_urls             --- Services urls
+
+
+Utility tools
+-------------
+::
+
+ tests                    --- Run pypesa unittests
 
 Changelog
 ---------
-
 **Version 0.4** - 2021 April 30    
     Improved auth decorator with wraps
     Added example in methods docstring to ease the usage
