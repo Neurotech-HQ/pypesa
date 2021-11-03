@@ -6,42 +6,39 @@ Python wrapper on **Mpesa public API** for mobile Payment Integration made with 
 
 The following are the features that are supported by the **Mpesa** public API and require the **python** implementation.
 
-- Customer to Bussiness (C2B) Single Payment 
+- Customer to Bussiness (C2B) Single Payment
 - Bussiness to Customer (B2C)
-- Bussiness to Bussiness (B2B) 
+- Bussiness to Bussiness (B2B)
 - Payment Reversal
-- Query Transaction status 
+- Query Transaction status
 - Direct debit creation and Payment
 
-
-## Documentation 
+## Documentation
 
 Full documentation can be found on [pypesa](http://kalebu.github.io/pypesa)
 
+## Getting started
 
-## Getting started 
-
-Getting started with **pypesa** is pretty straight forward and can be categorized 
+Getting started with **pypesa** is pretty straight forward and can be categorized
 
 into steps shown below.
 
-- Sign up for Mpesa Developer portal 
+- Sign up for Mpesa Developer portal
 
 - Install the [pypesa](http://kalebu.github.io/pypesa) package using **pip**
 
 - Build your services with **pypesa**
 
+## Signing up
 
-## Signing up 
+To sign up for Mpesa public API visit [Mpesa-API](https://openapiportal.m-pesa.com/sign-up) and then
 
-To sign up for Mpesa public API visit [Mpesa-API](https://openapiportal.m-pesa.com/sign-up) and then 
-
-you can go through [getting started Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4) 
+you can go through [getting started Mpesa Developer portal](https://dev.to/alphaolomi/getting-started-with-mpesa-developer-portal-46a4)
 by [alphaolomi](https://github.com/alphaolomi) to see how.
 
-## Installation 
+## Installation
 
-To install the **pypesa** package to your machine you can either 
+To install the **pypesa** package to your machine you can either
 
 install directly from github or use pip to install it.
 
@@ -63,10 +60,10 @@ pip install python-pesa
 
 ## Usage
 
-To begin using the package is pretty straight forward 
+To begin using the package is pretty straight forward
 
-1. You need to have a json file named **keys.json** on your project directly 
-  and then fill put in it your public and api keys in json format shown below 
+1. You need to have a json file named **keys.json** on your project directly
+  and then fill put in it your public and api keys in json format shown below
 
   ```python
 
@@ -81,8 +78,8 @@ To begin using the package is pretty straight forward
 ### Example of Usage (Customer to Bussiness Transaction)
 
 ```python
->>> import pypesa
->>> mpesa = pypesa()
+>>> from pypesa import Mpesa
+>>> mpesa = Mpesa()
 >>> transaction_query ={"input_Amount": "10", 
                         "input_Country": "TZN", 
                         "input_Currency": "TZS", 
@@ -102,22 +99,22 @@ Request processed successfully   INS-0
 
 ### Naming the authentication json
 
-If you named your authentication json in other name than **keys** you might to 
+If you named your authentication json in other name than **keys** you might to
 specify it while creating an instance for mpesa just as shown below;
 
 ```python
->>> import pypesa
->>> mpesa = pypesa(auth_path = filename)
-``` 
+>>> from pypesa import Mpesa
+>>> mpesa = Mpesa(auth_path = filename)
+```
 
-## production environmnent
+## production environment
 
-The package run by default using sandbox environmnent, If you wanna use it to real production
-environmnent you can specify it while creating an instance as shown below 
+The package run by default using sandbox environment, If you wanna use it to real production
+environment you can specify it while creating an instance as shown below
 
 ```python
->>> import pypesa
->>> mpesa = pypesa(environmnent="production")
+>>> from pypesa import Mpesa
+>>> mpesa = Mpesa(environment="production")
 ```
 
 ## Contributing
