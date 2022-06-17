@@ -1,7 +1,6 @@
-class Required(object):
-    """
-        A class holding a dictionary of required fields
-        for variety of transaction supported by pypesa
+class Required:
+    """A class holding dictionaries of required fields
+    for variety of transaction supported by pypesa.
     """
     re_customer_to_bussiness = {
         "input_Amount",
@@ -76,63 +75,48 @@ class Required(object):
     }
 
 
-class sandbox(Required):
-    """
-    Service URL to be used during sandbox Development
-
+class Sandbox(Required):
+    """Service URL to be used during sandbox Development.
     """
 
-    def __init__(self):
-        self.session_id = (
-            "https://openapi.m-pesa.com/sandbox/ipg/v2/vodacomTZN/getSession/"
-        )
-        self.single_stage_c2b = "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN/c2bPayment/singleStage/"
-        self.single_stage_b2c = (
-            "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN/b2cPayment/"
-        )
-        self.single_stage_b2b = (
-            "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN/b2bPayment/"
-        )
-        self.payment_reversal = (
-            "https://openapi.m-pesa.com:433/sandbox/ipg/v2/vodacomTZN/reversal/"
-        )
-        self.transaction_status = "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN/queryTransactionStatus/"
+    def __init__(self) -> None:
+        self.base_url = "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN"
 
-        self.direct_debit = "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN/directDebitCreation/"
+        self.session_id = f"{self.base_url}/getSession/"
+        self.single_stage_c2b = f"{self.base_url}/c2bPayment/singleStage/"
+        self.single_stage_b2c = f"{self.base_url}/b2cPayment/"
+        self.single_stage_b2b = f"{self.base_url}/b2bPayment/"
+    
+        self.payment_reversal = f"{self.base_url}/reversal/"
+        self.transaction_status = f"{self.base_url}/queryTransactionStatus/"
 
-        self.direct_debit_payment = "https://openapi.m-pesa.com:443/sandbox/ipg/v2/vodacomTZN/directDebitPayment/"
+        self.direct_debit = f"{self.base_url}/directDebitCreation/"
+        self.direct_debit_payment = f"{self.base_url}/directDebitPayment/"
 
     def __str__(self) -> str:
         return '<Using Sandbox Urls>'
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return '<Using Sandbox Urls>'
 
 
-class production(Required):
+class Production(Required):
+    """Service URL to be used for Production Development
     """
 
-    Service URL to be used for Production Development
+    def __init__(self) -> None:
+        self.base_url = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN"
+        
+        self.session_id = f"{self.base_url}/getSession/"
+        self.single_stage_c2b = f"{self.base_url}/c2bPayment/singleStage/"
+        self.single_stage_b2c = f"{self.base_url}/b2cPayment/"
+        self.single_stage_b2b = f"{self.base_url}/b2bPayment/"
 
-    """
+        self.payment_reversal = f"{self.base_url}/reversal/"
+        self.transaction_status = f"{self.base_url}/queryTransactionStatus/"
 
-    def __init__(self):
-        self.session_id = (
-            "https://openapi.m-pesa.com/openapi/ipg/v2/vodacomTZN/getSession/"
-        )
-        self.single_stage_c2b = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/c2bPayment/singleStage/"
-        self.single_stage_b2c = (
-            "https://openapi.m-pesa.com:443//openapi/ipg/v2/vodacomTZN/b2cPayment/"
-        )
-        self.single_stage_b2b = (
-            "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/b2bPayment/"
-        )
-        self.payment_reversal = (
-            "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/reversal/"
-        )
-        self.transaction_status = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/queryTransactionStatus/"
-        self.direct_debit = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/directDebitCreation/"
-        self.direct_debit_payment = "https://openapi.m-pesa.com:443/openapi/ipg/v2/vodacomTZN/directDebitPayment/"
+        self.direct_debit = f"{self.base_url}/directDebitCreation/"
+        self.direct_debit_payment = f"{self.base_url}/directDebitPayment/"
 
     def __str__(self) -> str:
         return '<Using Production Urls>'

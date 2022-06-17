@@ -2,11 +2,9 @@ key_format = {"api_key": "xxxxxxxxx", "public_key": "xxxxxxx"}
 
 
 class AuthenticationError(Exception):
-    """
-    Mpesa api Could'nt verify your keys
-
-    Please try entering again carefully
-
+    """Exception class that throws exception for invalid keys.
+    
+    Please try entering again carefully.
     """
 
     error_message = f"""
@@ -22,9 +20,7 @@ class AuthenticationError(Exception):
 
 
 class LoadingKeyError(Exception):
-    """
-
-    Exception thrown while loading authentication keys
+    """Exception thrown while loading authentication keys.
 
     """
 
@@ -42,8 +38,7 @@ class LoadingKeyError(Exception):
 
 
 class MpesaConnectionError(Exception):
-    """
-    This is exception will be thrown where there is no or slow internet connection
+    """This is exception will be thrown where there is no or slow internet connection
     """
 
     error_message = f"""
