@@ -1,3 +1,5 @@
+<samp> 
+  
 # [pypesa](http://kalebu.github.io/pypesa)
 
 [![Pypesa banner](assets/pypesa-banner.png)](https://kalebu.github.io/pypesa/)
@@ -148,4 +150,9 @@ we can fix it as soon as possible(ASAP) or just reach me directly through my ema
 
 ## Credit
 
-All the credits to [kalebu](https://github.com/Kalebu/) and all the future contributors
+All the credits to
+1. [kalebu](https://github.com/Kalebu/)
+2. [SentielWarren](https://github.com/SentinelWarren)
+3. and all the future contributors
+  
+</samp>
